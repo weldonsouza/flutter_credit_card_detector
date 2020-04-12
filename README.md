@@ -3,7 +3,7 @@
 Um pacote Flutter que permite você implementar facilmente a interface do usuário do cartão de crédito com a detecção do cartão.
 
 ## Preview
-![O aplicativo de exemplo em execução no Android](https://github.com/weldonsouza/flutter_credit_card_detector/preview/preview.gif)
+![O aplicativo de exemplo em execução no Android](https://github.com/weldonsouza/flutter_credit_card_detector/blob/master/preview/preview.gif)
 
 ## Uso
 1. Adicione dependência a `pubspec.yaml`
@@ -19,7 +19,7 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
 ```
 
 3. Adicionando CreditCardDetector
-*Com parâmetros requeridos*
+    *Com parâmetros requeridos*
 ```dart
 ...
     @override
@@ -49,7 +49,7 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
       }
 ...
 ```
-*Com parâmetros opcionais*
+    *Com parâmetros opcionais*
 ```dart
 ...
     CreditCardDetector(
@@ -90,9 +90,10 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
     * JCB
     * Rupay
 
-# Autor
-* [Weldon Souza] (http://github.com/weldonsouza/)
-
 Para mais detalhes sobre o uso, confira o aplicativo example fornecido.
 
+#Autor
+* Weldon Souza
+
+#Licença
 O flutter_credit_card_detector é liberado sob a licença MIT. Consulte [LICENÇA](./LICENSE) para obter detalhes.
