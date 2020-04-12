@@ -19,7 +19,7 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
 ```
 
 3. Adicionando CreditCardDetector
-    *Com parâmetros requeridos*
+- *Com parâmetros requeridos*
 ```dart
 ...
     @override
@@ -49,7 +49,7 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
       }
 ...
 ```
-    *Com parâmetros opcionais*
+- *Com parâmetros opcionais*
 ```dart
 ...
     CreditCardDetector(
@@ -92,8 +92,8 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
 
 Para mais detalhes sobre o uso, confira o aplicativo example fornecido.
 
-#Autor
+# Autor
 * Weldon Souza
 
-#Licença
+# Licença
 O flutter_credit_card_detector é liberado sob a licença MIT. Consulte [LICENÇA](./LICENSE) para obter detalhes.
