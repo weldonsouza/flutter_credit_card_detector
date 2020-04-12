@@ -10,7 +10,7 @@ Um pacote Flutter que permite você implementar facilmente a interface do usuár
 
 ```dart
 dependencies:
-    flutter_credit_card_detector: 0.1.1
+    flutter_credit_card_detector: 0.1.2
 ```
 
 2. Importar o pacote
@@ -91,9 +91,6 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
     * Rupay
 
 Para mais detalhes sobre o uso, confira o aplicativo example fornecido.
-
-# Autor
-* Weldon Souza
 
 # Licença
 O flutter_credit_card_detector é liberado sob a licença MIT. Consulte [LICENÇA](./LICENSE) para obter detalhes.

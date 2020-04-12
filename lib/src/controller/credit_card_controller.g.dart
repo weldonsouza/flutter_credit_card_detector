@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'credit_card.dart';
+part of 'credit_card_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'credit_card.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$CreditCard on _CreditCardBase, Store {
-  final _$numberAtom = Atom(name: '_CreditCardBase.number');
+mixin _$CreditCardController on _CreditCardControllerBase, Store {
+  final _$numberAtom = Atom(name: '_CreditCardControllerBase.number');
 
   @override
   String get number {
@@ -26,7 +26,7 @@ mixin _$CreditCard on _CreditCardBase, Store {
     }, _$numberAtom, name: '${_$numberAtom.name}_set');
   }
 
-  final _$nameAtom = Atom(name: '_CreditCardBase.name');
+  final _$nameAtom = Atom(name: '_CreditCardControllerBase.name');
 
   @override
   String get name {
@@ -43,7 +43,7 @@ mixin _$CreditCard on _CreditCardBase, Store {
     }, _$nameAtom, name: '${_$nameAtom.name}_set');
   }
 
-  final _$expDataAtom = Atom(name: '_CreditCardBase.expData');
+  final _$expDataAtom = Atom(name: '_CreditCardControllerBase.expData');
 
   @override
   String get expData {
@@ -60,7 +60,7 @@ mixin _$CreditCard on _CreditCardBase, Store {
     }, _$expDataAtom, name: '${_$expDataAtom.name}_set');
   }
 
-  final _$cvvAtom = Atom(name: '_CreditCardBase.cvv');
+  final _$cvvAtom = Atom(name: '_CreditCardControllerBase.cvv');
 
   @override
   String get cvv {
@@ -77,7 +77,7 @@ mixin _$CreditCard on _CreditCardBase, Store {
     }, _$cvvAtom, name: '${_$cvvAtom.name}_set');
   }
 
-  final _$iconBandAtom = Atom(name: '_CreditCardBase.iconBand');
+  final _$iconBandAtom = Atom(name: '_CreditCardControllerBase.iconBand');
 
   @override
   String get iconBand {
@@ -94,56 +94,61 @@ mixin _$CreditCard on _CreditCardBase, Store {
     }, _$iconBandAtom, name: '${_$iconBandAtom.name}_set');
   }
 
-  final _$_CreditCardBaseActionController =
-      ActionController(name: '_CreditCardBase');
+  final _$_CreditCardControllerBaseActionController =
+      ActionController(name: '_CreditCardControllerBase');
 
   @override
   dynamic changeNumero(String value) {
-    final _$actionInfo = _$_CreditCardBaseActionController.startAction();
+    final _$actionInfo =
+        _$_CreditCardControllerBaseActionController.startAction();
     try {
       return super.changeNumero(value);
     } finally {
-      _$_CreditCardBaseActionController.endAction(_$actionInfo);
+      _$_CreditCardControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic changeName(String value) {
-    final _$actionInfo = _$_CreditCardBaseActionController.startAction();
+    final _$actionInfo =
+        _$_CreditCardControllerBaseActionController.startAction();
     try {
       return super.changeName(value);
     } finally {
-      _$_CreditCardBaseActionController.endAction(_$actionInfo);
+      _$_CreditCardControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic changeExpData(String value) {
-    final _$actionInfo = _$_CreditCardBaseActionController.startAction();
+    final _$actionInfo =
+        _$_CreditCardControllerBaseActionController.startAction();
     try {
       return super.changeExpData(value);
     } finally {
-      _$_CreditCardBaseActionController.endAction(_$actionInfo);
+      _$_CreditCardControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic changeCVV(String value) {
-    final _$actionInfo = _$_CreditCardBaseActionController.startAction();
+    final _$actionInfo =
+        _$_CreditCardControllerBaseActionController.startAction();
     try {
       return super.changeCVV(value);
     } finally {
-      _$_CreditCardBaseActionController.endAction(_$actionInfo);
+      _$_CreditCardControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic changeIconBand(String value) {
-    final _$actionInfo = _$_CreditCardBaseActionController.startAction();
+    final _$actionInfo =
+        _$_CreditCardControllerBaseActionController.startAction();
     try {
       return super.changeIconBand(value);
     } finally {
-      _$_CreditCardBaseActionController.endAction(_$actionInfo);
+      _$_CreditCardControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

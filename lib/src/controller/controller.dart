@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'credit_card.dart';
+import 'credit_card_controller.dart';
 import '../utils/credit_card_type_detector.dart';
 import '../utils/globals.dart';
 
@@ -8,7 +8,7 @@ part 'controller.g.dart';
 class Controller = ControllerBase with _$Controller;
 
 abstract class ControllerBase with Store {
-  var creditCard = CreditCard();
+  var creditCard = CreditCardController();
   var typeBand;
   var ccTypeBand;
 

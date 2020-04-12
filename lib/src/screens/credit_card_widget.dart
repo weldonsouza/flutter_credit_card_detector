@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
 
-class CreditCardDetector extends StatefulWidget {
+class CreditCardWidget extends StatefulWidget {
   final String labelTextNum;
   final String labelTextName;
   final String labelTextExpData;
@@ -24,7 +24,7 @@ class CreditCardDetector extends StatefulWidget {
   final Color colorCreditBlack; // body_widget
   final Function() onTap;
 
-  const CreditCardDetector(
+  const CreditCardWidget(
       {Key key,
       this.labelTextNum = 'Numero do cartão',
       this.labelTextName = 'Nome no cartão',
@@ -49,10 +49,10 @@ class CreditCardDetector extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CreditCardDetectorState createState() => _CreditCardDetectorState();
+  _CreditCardWidgetState createState() => _CreditCardWidgetState();
 }
 
-class _CreditCardDetectorState extends State<CreditCardDetector> {
+class _CreditCardWidgetState extends State<CreditCardWidget> {
   FocusNode _numFocus = FocusNode();
   FocusNode _nameFocus = FocusNode();
   FocusNode _expDateFocus = FocusNode();

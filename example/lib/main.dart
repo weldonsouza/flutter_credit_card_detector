@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Flutter Demo'),
               backgroundColor: Colors.orange[300],
             ),
-            body: CreditCardDetector(onTap: _onTap)),
+            body: CreditCardWidget(onTap: _onTap)),
         debugShowCheckedModeBanner: false,
       ),
     );

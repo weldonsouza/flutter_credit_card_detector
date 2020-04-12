@@ -1,10 +1,10 @@
 import 'package:mobx/mobx.dart';
 
-part 'credit_card.g.dart';
+part 'credit_card_controller.g.dart';
 
-class CreditCard = _CreditCardBase with _$CreditCard;
+class CreditCardController = _CreditCardControllerBase with _$CreditCardController;
 
-abstract class _CreditCardBase with Store {
+abstract class _CreditCardControllerBase with Store {
   @observable
   String number;
 
