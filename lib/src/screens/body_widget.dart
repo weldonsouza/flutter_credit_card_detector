@@ -173,35 +173,33 @@ class _BodyWidgetState extends State<BodyWidget> {
           detectCCType(controller.creditCard.number) ==
                       CreditCardType.unknown &&
                   controller.creditCard.number.length > 4
-              ? Observer(builder: (_) {
-                  return Wrap(
-                    alignment: WrapAlignment.center,
-                    children: <Widget>[
-                      _gestureDetectorCard(controller, 'visa',
-                          CreditCardType.visa, Colors.grey, cardColor),
-                      _gestureDetectorCard(controller, 'mastercard',
-                          CreditCardType.mastercard, null, cardColor),
-                      _gestureDetectorCard(controller, 'amex',
-                          CreditCardType.amex, null, cardColor),
-                      _gestureDetectorCard(controller, 'elo',
-                          CreditCardType.elo, Colors.grey, cardColor),
-                      _gestureDetectorCard(controller, 'dinersclub',
-                          CreditCardType.dinersclub, null, cardColor),
-                      _gestureDetectorCard(controller, 'discover',
-                          CreditCardType.discover, Colors.grey, cardColor),
-                      _gestureDetectorCard(controller, 'jcb',
-                          CreditCardType.jcb, null, cardColor),
-                      _gestureDetectorCard(controller, 'aura',
-                          CreditCardType.aura, null, cardColor),
-                      _gestureDetectorCard(controller, 'hiper',
-                          CreditCardType.hiper, null, cardColor),
-                      _gestureDetectorCard(controller, 'hipercard',
-                          CreditCardType.hipercard, null, cardColor),
-                      _gestureDetectorCard(controller, 'rupay',
-                          CreditCardType.rupay, null, cardColor),
-                    ],
-                  );
-                })
+              ? Wrap(
+                  alignment: WrapAlignment.center,
+                  children: <Widget>[
+                    _gestureDetectorCard(controller, 'visa',
+                        CreditCardType.visa, Colors.grey, cardColor),
+                    _gestureDetectorCard(controller, 'mastercard',
+                        CreditCardType.mastercard, null, cardColor),
+                    _gestureDetectorCard(controller, 'amex',
+                        CreditCardType.amex, null, cardColor),
+                    _gestureDetectorCard(controller, 'elo', CreditCardType.elo,
+                        Colors.grey, cardColor),
+                    _gestureDetectorCard(controller, 'dinersclub',
+                        CreditCardType.dinersclub, null, cardColor),
+                    _gestureDetectorCard(controller, 'discover',
+                        CreditCardType.discover, Colors.grey, cardColor),
+                    _gestureDetectorCard(
+                        controller, 'jcb', CreditCardType.jcb, null, cardColor),
+                    _gestureDetectorCard(controller, 'aura',
+                        CreditCardType.aura, null, cardColor),
+                    _gestureDetectorCard(controller, 'hiper',
+                        CreditCardType.hiper, null, cardColor),
+                    _gestureDetectorCard(controller, 'hipercard',
+                        CreditCardType.hipercard, null, cardColor),
+                    _gestureDetectorCard(controller, 'rupay',
+                        CreditCardType.rupay, null, cardColor),
+                  ],
+                )
               : Container()
         ],
       ),
@@ -227,7 +225,8 @@ class _BodyWidgetState extends State<BodyWidget> {
             children: <Widget>[
               Radio(
                 value: currType,
-                groupValue: CreditCardType.visa,
+                groupValue: creditCardType,
+                onChanged: (value) {},
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
