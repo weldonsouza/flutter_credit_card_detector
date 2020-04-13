@@ -117,7 +117,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.1.2"
+    version: "0.1.3"
   flutter_masked_text:
     dependency: transitive
     description:

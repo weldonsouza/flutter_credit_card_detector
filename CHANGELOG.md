@@ -1,3 +1,7 @@
+## [0.1.3] - 13 de Abril 2020.
+
+* Atualização do README.
+
 ## [0.1.2] - 12 de Abril 2020.
 
 * Corrigindo erro de sintaxe.
