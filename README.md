@@ -10,7 +10,7 @@ Um pacote Flutter que permite você implementar facilmente a interface do usuár
 
 ```dart
 dependencies:
-    flutter_credit_card_detector: 0.1.2
+    flutter_credit_card_detector: 0.1.5
 ```
 
 2. Importar o pacote

@@ -46,7 +46,19 @@ class CreditCardWidget extends StatefulWidget {
       this.colorCardSelect = const Color(0xFFfec177),
       this.colorCreditWhite = const Color(0xff535252),
       this.colorCreditBlack = const Color(0xff211e1e),
-      this.listBand = const ['visa', 'mastercard', 'amex', 'elo', 'dinersclub', 'discover', 'jcb', 'aura', 'hiper', 'hipercard', 'rupay'],
+      this.listBand = const [
+        'visa',
+        'mastercard',
+        'amex',
+        'elo',
+        'dinersclub',
+        'discover',
+        'jcb',
+        'aura',
+        'hiper',
+        'hipercard',
+        'rupay'
+      ],
       this.onTap})
       : super(key: key);
 
@@ -118,7 +130,8 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
             inputFormatters: [BlacklistingTextInputFormatter(RegExp(r'[.,]'))],
             onFieldSubmitted: (v) {
               if (controller.isValid) {
-                creditCardNumber = controller.creditCard.number.replaceAll(' ', '');
+                creditCardNumber =
+                    controller.creditCard.number.replaceAll(' ', '');
                 creditCardName = controller.creditCard.name;
                 creditCardExpData = controller.creditCard.expData;
                 creditCardCVV = controller.creditCard.cvv;
@@ -152,12 +165,12 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
       child: Column(
         children: <Widget>[
           BodyWidget(
-              titleCreditCard: widget.titleCreditCard,
-              labelTextValidate: widget.labelTextValidate,
-              colorCardSelect: widget.colorCardSelect,
-              colorCreditWhite: widget.colorCreditWhite,
-              colorCreditBlack: widget.colorCreditBlack,
-              listBand: widget.listBand,
+            titleCreditCard: widget.titleCreditCard,
+            labelTextValidate: widget.labelTextValidate,
+            colorCardSelect: widget.colorCardSelect,
+            colorCreditWhite: widget.colorCreditWhite,
+            colorCreditBlack: widget.colorCreditBlack,
+            listBand: widget.listBand,
           ),
           SizedBox(height: 10),
           Observer(
