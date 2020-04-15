@@ -23,6 +23,8 @@ String textIntroNameValid;
 String textCardExpired;
 String textInvalidateMonth;
 
+List<String> listBand = [];
+
 mediaQuery(BuildContext context, double value, {String direction}) {
   MediaQueryData mediaQuery = MediaQuery.of(context);
   direction = direction ?? 'H';

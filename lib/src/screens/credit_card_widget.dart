@@ -22,6 +22,7 @@ class CreditCardWidget extends StatefulWidget {
   final Color colorCardSelect; // body_widget
   final Color colorCreditWhite; // body_widget
   final Color colorCreditBlack; // body_widget
+  final List<String> listBand;
   final Function() onTap;
 
   const CreditCardWidget(
@@ -45,6 +46,7 @@ class CreditCardWidget extends StatefulWidget {
       this.colorCardSelect = const Color(0xFFfec177),
       this.colorCreditWhite = const Color(0xff535252),
       this.colorCreditBlack = const Color(0xff211e1e),
+      this.listBand = const ['visa', 'mastercard', 'amex', 'elo', 'dinersclub', 'discover', 'jcb', 'aura', 'hiper', 'hipercard', 'rupay'],
       this.onTap})
       : super(key: key);
 
@@ -78,6 +80,8 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
     textIntroNameValid = widget.textIntroNameValid;
     textCardExpired = widget.textCardExpired;
     textInvalidateMonth = widget.textInvalidateMonth;
+
+    listBand = widget.listBand;
   }
 
   @override
@@ -114,8 +118,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
             inputFormatters: [BlacklistingTextInputFormatter(RegExp(r'[.,]'))],
             onFieldSubmitted: (v) {
               if (controller.isValid) {
-                creditCardNumber =
-                    controller.creditCard.number.replaceAll(' ', '');
+                creditCardNumber = controller.creditCard.number.replaceAll(' ', '');
                 creditCardName = controller.creditCard.name;
                 creditCardExpData = controller.creditCard.expData;
                 creditCardCVV = controller.creditCard.cvv;
@@ -153,7 +156,9 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
               labelTextValidate: widget.labelTextValidate,
               colorCardSelect: widget.colorCardSelect,
               colorCreditWhite: widget.colorCreditWhite,
-              colorCreditBlack: widget.colorCreditBlack),
+              colorCreditBlack: widget.colorCreditBlack,
+              listBand: widget.listBand,
+          ),
           SizedBox(height: 10),
           Observer(
               name: 'Numero do cartão',

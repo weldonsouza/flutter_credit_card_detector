@@ -44,11 +44,14 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Flutter Demo'),
               backgroundColor: Colors.orange[300],
             ),
-            body: CreditCardWidget(onTap: _onTap)),
+            body: CreditCardWidget(listBand: listBand, onTap: _onTap)),
         debugShowCheckedModeBanner: false,
       ),
     );
   }
+
+  // Bandeiras disponíveis
+  List<String> listBand = ['visa', 'mastercard', 'amex', 'elo', 'dinersclub', 'discover', 'jcb', 'aura', 'hiper', 'hipercard', 'rupay'];
 
   _onTap() async {
     print('Numero do cartão: $creditCardNumber'); // Numero do cartão digitado

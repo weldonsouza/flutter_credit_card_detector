@@ -18,6 +18,7 @@ class BodyWidget extends StatefulWidget {
   final Color colorCardSelect;
   final Color colorCreditWhite;
   final Color colorCreditBlack;
+  final List<String> listBand;
 
   const BodyWidget({
     Key key,
@@ -26,6 +27,7 @@ class BodyWidget extends StatefulWidget {
     this.colorCardSelect,
     this.colorCreditWhite,
     this.colorCreditBlack,
+    this.listBand,
   }) : super(key: key);
 
   @override
@@ -171,33 +173,21 @@ class _BodyWidgetState extends State<BodyWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           detectCCType(controller.creditCard.number) ==
-                      CreditCardType.unknown &&
-                  controller.creditCard.number.length > 4
+                      CreditCardType.unknown && controller.creditCard.number.length > 4
               ? Wrap(
                   alignment: WrapAlignment.center,
                   children: <Widget>[
-                    _gestureDetectorCard(controller, 'visa',
-                        CreditCardType.visa, Colors.grey, cardColor),
-                    _gestureDetectorCard(controller, 'mastercard',
-                        CreditCardType.mastercard, null, cardColor),
-                    _gestureDetectorCard(controller, 'amex',
-                        CreditCardType.amex, null, cardColor),
-                    _gestureDetectorCard(controller, 'elo', CreditCardType.elo,
-                        Colors.grey, cardColor),
-                    _gestureDetectorCard(controller, 'dinersclub',
-                        CreditCardType.dinersclub, null, cardColor),
-                    _gestureDetectorCard(controller, 'discover',
-                        CreditCardType.discover, Colors.grey, cardColor),
-                    _gestureDetectorCard(
-                        controller, 'jcb', CreditCardType.jcb, null, cardColor),
-                    _gestureDetectorCard(controller, 'aura',
-                        CreditCardType.aura, null, cardColor),
-                    _gestureDetectorCard(controller, 'hiper',
-                        CreditCardType.hiper, null, cardColor),
-                    _gestureDetectorCard(controller, 'hipercard',
-                        CreditCardType.hipercard, null, cardColor),
-                    _gestureDetectorCard(controller, 'rupay',
-                        CreditCardType.rupay, null, cardColor),
+                    listBand.contains('visa') ? _gestureDetectorCard(controller, 'visa', CreditCardType.visa, Colors.grey, cardColor) : Padding(padding: EdgeInsets.all(0)),
+                    listBand.contains('mastercard') ? _gestureDetectorCard(controller, 'mastercard', CreditCardType.mastercard, null, cardColor) : Padding(padding: EdgeInsets.all(0)),
+                    listBand.contains('amex') ? _gestureDetectorCard(controller, 'amex', CreditCardType.amex, null, cardColor) : Padding(padding: EdgeInsets.all(0)),
+                    listBand.contains('elo') ? _gestureDetectorCard(controller, 'elo', CreditCardType.elo, Colors.grey, cardColor) : Padding(padding: EdgeInsets.all(0)),
+                    listBand.contains('dinersclub') ? _gestureDetectorCard(controller, 'dinersclub', CreditCardType.dinersclub, null, cardColor) : Padding(padding: EdgeInsets.all(0)),
+                    listBand.contains('discover') ? _gestureDetectorCard(controller, 'discover', CreditCardType.discover, Colors.grey, cardColor) : Padding(padding: EdgeInsets.all(0)),
+                    listBand.contains('jcb') ? _gestureDetectorCard(controller, 'jcb', CreditCardType.jcb, null, cardColor) : Padding(padding: EdgeInsets.all(0)),
+                    listBand.contains('aura') ? _gestureDetectorCard(controller, 'aura', CreditCardType.aura, null, cardColor) : Padding(padding: EdgeInsets.all(0)),
+                    listBand.contains('hiper') ? _gestureDetectorCard(controller, 'hiper', CreditCardType.hiper, null, cardColor) : Padding(padding: EdgeInsets.all(0)),
+                    listBand.contains('hipercard') ? _gestureDetectorCard(controller, 'hipercard', CreditCardType.hipercard, null, cardColor) : Padding(padding: EdgeInsets.all(0)),
+                    listBand.contains('rupay') ? _gestureDetectorCard(controller, 'rupay', CreditCardType.rupay, null, cardColor) : Padding(padding: EdgeInsets.all(0)),
                   ],
                 )
               : Container()

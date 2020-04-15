@@ -72,6 +72,7 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
         colorCardSelect: const Color(0xFFfec177), // Cor do card selecionado
         colorCreditWhite: const Color(0xff535252), // Cor do cartão
         colorCreditBlack: const Color(0xff211e1e), // Cor do cartão
+        listBand: ['visa', 'mastercard'], // Definir quais cartões estarão disponíveis
         onTap: onTap, // Função
     ),
 ...

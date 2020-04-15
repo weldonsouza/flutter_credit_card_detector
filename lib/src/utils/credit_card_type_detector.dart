@@ -1,4 +1,6 @@
 // Supported card types
+import 'globals.dart';
+
 enum CreditCardType {
   aura,
   visa,
@@ -143,6 +145,13 @@ CreditCardType detectCCType(String ccNumStr) {
       }
     },
   );
+
+  var listCCTypeBand = cardType.toString().replaceAll('CreditCardType.', '');
+  if (listBand.contains(listCCTypeBand)) {
+    cardType = cardType;
+  } else {
+    cardType = CreditCardType.unknown;
+  }
 
   return cardType;
 }

@@ -1,3 +1,7 @@
+## [0.1.4] - 15 de Abril 2020.
+
+* Opção para definir quais cartões estarão disponíveis
+
 ## [0.1.3] - 13 de Abril 2020.
 
 * Atualização do README.
