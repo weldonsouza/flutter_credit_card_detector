@@ -1,5 +1,7 @@
 # flutter_credit_card_detector
 
+[![pub package](https://img.shields.io/pub/v/flutter_credit_card_detector?color=blue)](https://pub.dev/packages/flutter_credit_card_detector)
+
 Um pacote Flutter que permite você implementar facilmente a interface do usuário do cartão de crédito com a detecção do cartão.
 
 ## Preview
