@@ -20,7 +20,7 @@ dependencies:
 import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
 ```
 
-3. Adicionando CreditCardDetector
+3. Adicionando CreditCardWidget
 - *Com parâmetros requeridos*
 ```dart
 ...
@@ -38,7 +38,7 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
               title: Text('Flutter Demo'),
               backgroundColor: Colors.orange[300],
             ),
-            body: CreditCardDetector(onTap: _onTap)),
+            body: CreditCardWidget(onTap: _onTap)),
       );
     }
 ...
@@ -54,7 +54,7 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
 - *Com parâmetros opcionais*
 ```dart
 ...
-    CreditCardDetector(
+    CreditCardWidget(
         labelTextNum: 'Numero do cartão', // Texto exibido no textField
         labelTextName: 'Nome no cartão', // Texto exibido no textField
         labelTextExpData: 'MM/YY', // Texto exibido no textField

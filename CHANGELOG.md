@@ -1,3 +1,7 @@
+## [0.1.6] - 16 de Abril 2020.
+
+* Renomeando CreditCardDetector para CreditCardWidget
+
 ## [0.1.5] - 15 de Abril 2020.
 
 * Corrigindo erro de sintaxe.
