@@ -22,6 +22,10 @@ class CreditCardWidget extends StatefulWidget {
   final Color colorCardSelect; // body_widget
   final Color colorCreditWhite; // body_widget
   final Color colorCreditBlack; // body_widget
+  final double textSizeNumber; // body_widget
+  final double textSizeName; // body_widget
+  final double textSizeMonth; // body_widget
+  final double textSizeCVC; // body_widget
   final List<String> listBand;
   final Function() onTap;
 
@@ -46,6 +50,10 @@ class CreditCardWidget extends StatefulWidget {
       this.colorCardSelect = const Color(0xFFfec177),
       this.colorCreditWhite = const Color(0xff535252),
       this.colorCreditBlack = const Color(0xff211e1e),
+      this.textSizeNumber = 0.06,
+      this.textSizeName = 0.045,
+      this.textSizeMonth = 0.03,
+      this.textSizeCVC = 0.03,
       this.listBand = const [
         'visa',
         'mastercard',
@@ -170,6 +178,10 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
             colorCardSelect: widget.colorCardSelect,
             colorCreditWhite: widget.colorCreditWhite,
             colorCreditBlack: widget.colorCreditBlack,
+            textSizeNumber: widget.textSizeNumber,
+            textSizeName: widget.textSizeName,
+            textSizeMonth: widget.textSizeMonth,
+            textSizeCVC: widget.textSizeCVC,
             listBand: widget.listBand,
           ),
           SizedBox(height: 10),

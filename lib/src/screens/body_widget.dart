@@ -18,6 +18,10 @@ class BodyWidget extends StatefulWidget {
   final Color colorCardSelect;
   final Color colorCreditWhite;
   final Color colorCreditBlack;
+  final double textSizeNumber;
+  final double textSizeName;
+  final double textSizeMonth;
+  final double textSizeCVC;
   final List<String> listBand;
 
   const BodyWidget({
@@ -27,6 +31,10 @@ class BodyWidget extends StatefulWidget {
     this.colorCardSelect,
     this.colorCreditWhite,
     this.colorCreditBlack,
+    this.textSizeNumber,
+    this.textSizeName,
+    this.textSizeMonth,
+    this.textSizeCVC,
     this.listBand,
   }) : super(key: key);
 
@@ -373,7 +381,8 @@ class _BodyWidgetState extends State<BodyWidget> {
                                   : controller.creditCard.number,
                               style: TextStyle(
                                 color: Color(0xffffffff),
-                                fontSize: mediaQuery(context, 0.06),
+                                fontSize:
+                                    mediaQuery(context, widget.textSizeNumber),
                               ),
                             ),
                           );
@@ -395,7 +404,8 @@ class _BodyWidgetState extends State<BodyWidget> {
                                           ? ''
                                           : controller.creditCard.expData,
                                       style: TextStyle(
-                                        fontSize: mediaQuery(context, 0.03),
+                                        fontSize: mediaQuery(
+                                            context, widget.textSizeMonth),
                                         fontWeight: FontWeight.normal,
                                         color: Color(0xffffffff),
                                       ),
@@ -422,7 +432,8 @@ class _BodyWidgetState extends State<BodyWidget> {
                                             ? ''
                                             : controller.creditCard.cvv,
                                         style: TextStyle(
-                                          fontSize: mediaQuery(context, 0.03),
+                                          fontSize: mediaQuery(
+                                              context, widget.textSizeCVC),
                                           fontWeight: FontWeight.normal,
                                           color: Color(0xffffffff),
                                         ),
@@ -457,7 +468,8 @@ class _BodyWidgetState extends State<BodyWidget> {
                                     style: TextStyle(
                                       color: Color(0xffffffff),
                                       fontWeight: FontWeight.normal,
-                                      fontSize: mediaQuery(context, 0.045),
+                                      fontSize: mediaQuery(
+                                          context, widget.textSizeName),
                                     ),
                                     overflow: TextOverflow.clip,
                                   ),

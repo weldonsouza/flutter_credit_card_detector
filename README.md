@@ -74,6 +74,10 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
         colorCardSelect: const Color(0xFFfec177), // Cor do card selecionado
         colorCreditWhite: const Color(0xff535252), // Cor do cartão
         colorCreditBlack: const Color(0xff211e1e), // Cor do cartão
+        textSizeNumber: 0.06, // Tamanho do número apresentado no cartão
+        textSizeName: 0.04, // Tamanho do nome apresentado no cartão
+        textSizeMonth: 0.03, // Tamanho do texto apresentado no cartão
+        textSizeCVC: 0.03, // Tamanho do texto apresentado no cartão
         listBand: ['visa', 'mastercard'], // Definir quais cartões estarão disponíveis
         onTap: onTap, // Função
     ),

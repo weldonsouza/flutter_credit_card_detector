@@ -1,3 +1,11 @@
+## [0.1.7] - 27 de Abril 2020.
+
+* Adicionado parâmetros opcionais para definir o tamanho dos textos no cartão:
+    * Número
+    * Nome
+    * Data
+    * CVC
+
 ## [0.1.6] - 16 de Abril 2020.
 
 * Renomeando CreditCardDetector para CreditCardWidget
