@@ -176,11 +176,8 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
             },
             onEditingComplete: () {
               FocusScope.of(context).requestFocus(nextFocusNode);
-              nextTexFieldView == null
-                  ? null
-                  : nextTexFieldView.currentContext
-                      .findRenderObject()
-                      .showOnScreen(duration: Duration(seconds: 0));
+              nextTexFieldView.currentContext.findRenderObject()
+                .showOnScreen(duration: Duration(seconds: 0));
             },
             decoration: InputDecoration(
               border: OutlineInputBorder(
