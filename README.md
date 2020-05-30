@@ -8,6 +8,10 @@ Um pacote Flutter que permite você implementar facilmente a interface do usuár
 ## Preview
 ![O aplicativo de exemplo em execução no Android](https://github.com/weldonsouza/flutter_credit_card_detector/blob/master/preview/preview.gif)
 
+## Screenshot
+![screenshot4](https://github.com/weldonsouza/flutter_credit_card_detector/blob/master/screenshot/screenshot4.png)
+![screenshot5](https://github.com/weldonsouza/flutter_credit_card_detector/blob/master/screenshot/screenshot5.png)
+
 Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/details?id=com.neduki.creditcarddetector)
 
 ## Uso
@@ -15,7 +19,7 @@ Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/deta
 
 ```dart
 dependencies:
-    flutter_credit_card_detector: 0.1.7
+    flutter_credit_card_detector: 1.0.0
 ```
 
 2. Importar o pacote
@@ -51,6 +55,7 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
         print('Valido até: $creditCardExpData'); // Validade do cartão
         print('CVV: $creditCardCVV'); // Código de segurança
         print('Bandeira: $creditCardBand'); // Bandeira do cartão
+        print('CPF: $creditCardCPF'); // CPF do Titular
       }
 ...
 ```
@@ -62,6 +67,7 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
         labelTextName: 'Nome no cartão', // Texto exibido no textField
         labelTextExpData: 'MM/YY', // Texto exibido no textField
         labelTextCVV: 'CVV/CVC', // Texto exibido no textField
+        labelTextCPF: 'CPF do Titular', // Texto exibido no textField
         labelTextButton: 'Efetuar pagamento', // Texto do button
         titleCreditCard: 'Cartão de Crédito', // Título do cartão
         labelTextValidate: 'Valido Até', // Texto de validade do cartão
@@ -81,6 +87,8 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
         textSizeName: 0.04, // Tamanho do nome apresentado no cartão
         textSizeMonth: 0.03, // Tamanho do texto apresentado no cartão
         textSizeCVC: 0.03, // Tamanho do texto apresentado no cartão
+        viewLayout: false, // Vertical = false, Horizontal = true
+        cpfVisibility: true, // Campo do CPF visível = true e false para ocultar o campo
         listBand: ['visa', 'mastercard'], // Definir quais cartões estarão disponíveis
         onTap: onTap, // Função
     ),

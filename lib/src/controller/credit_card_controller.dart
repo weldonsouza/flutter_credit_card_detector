@@ -31,6 +31,12 @@ abstract class _CreditCardControllerBase with Store {
   changeCVV(String value) => cvv = value;
 
   @observable
+  String cpf;
+
+  @action
+  changeCpf(String value) => cpf = value;
+
+  @observable
   String iconBand;
 
   @action

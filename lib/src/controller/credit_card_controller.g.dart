@@ -77,6 +77,23 @@ mixin _$CreditCardController on _CreditCardControllerBase, Store {
     }, _$cvvAtom, name: '${_$cvvAtom.name}_set');
   }
 
+  final _$cpfAtom = Atom(name: '_CreditCardControllerBase.cpf');
+
+  @override
+  String get cpf {
+    _$cpfAtom.context.enforceReadPolicy(_$cpfAtom);
+    _$cpfAtom.reportObserved();
+    return super.cpf;
+  }
+
+  @override
+  set cpf(String value) {
+    _$cpfAtom.context.conditionallyRunInAction(() {
+      super.cpf = value;
+      _$cpfAtom.reportChanged();
+    }, _$cpfAtom, name: '${_$cpfAtom.name}_set');
+  }
+
   final _$iconBandAtom = Atom(name: '_CreditCardControllerBase.iconBand');
 
   @override
@@ -142,6 +159,17 @@ mixin _$CreditCardController on _CreditCardControllerBase, Store {
   }
 
   @override
+  dynamic changeCpf(String value) {
+    final _$actionInfo =
+        _$_CreditCardControllerBaseActionController.startAction();
+    try {
+      return super.changeCpf(value);
+    } finally {
+      _$_CreditCardControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic changeIconBand(String value) {
     final _$actionInfo =
         _$_CreditCardControllerBaseActionController.startAction();
@@ -155,7 +183,7 @@ mixin _$CreditCardController on _CreditCardControllerBase, Store {
   @override
   String toString() {
     final string =
-        'number: ${number.toString()},name: ${name.toString()},expData: ${expData.toString()},cvv: ${cvv.toString()},iconBand: ${iconBand.toString()}';
+        'number: ${number.toString()},name: ${name.toString()},expData: ${expData.toString()},cvv: ${cvv.toString()},cpf: ${cpf.toString()},iconBand: ${iconBand.toString()}';
     return '{$string}';
   }
 }

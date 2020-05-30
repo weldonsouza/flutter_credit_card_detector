@@ -18,6 +18,7 @@ abstract class ControllerBase with Store {
         validateName() == null &&
         validateExpData() == null &&
         validateCVV() == null &&
+        validateCPF() == null &&
         validateIconBand() != 'unknown';
   }
 
@@ -66,6 +67,16 @@ abstract class ControllerBase with Store {
 
   String validateCVV() {
     if (creditCard.cvv.length < 3) {
+      return textRequired;
+    }
+
+    return null;
+  }
+
+  String validateCPF() {
+    if (validateCpfVisibility == false) {
+      return null;
+    } else if (creditCard.cpf.length < 11) {
       return textRequired;
     }
 

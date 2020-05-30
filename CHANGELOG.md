@@ -1,3 +1,8 @@
+## [1.0.0] - 30 de Maio 2020.
+
+* Orientação de layout pode ser vertical ou horizontal
+* Adicionado campo CPF do tilular(Campo opcional)
+
 ## [0.1.7] - 27 de Abril 2020.
 
 * Adicionado parâmetros opcionais para definir o tamanho dos textos no cartão:

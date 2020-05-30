@@ -59,5 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
     print('Valido até: $creditCardExpData'); // Validade do cartão
     print('CVV: $creditCardCVV'); // Código de segurança
     print('Bandeira: $creditCardBand'); // Bandeira do cartão
+    print('CPF: $creditCardCPF'); // CPF do Titular
   }
 }

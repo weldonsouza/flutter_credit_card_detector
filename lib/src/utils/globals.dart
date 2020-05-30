@@ -15,6 +15,7 @@ String creditCardName = '';
 String creditCardExpData = '';
 String creditCardCVV = '';
 String creditCardBand = '';
+String creditCardCPF = '';
 
 String textRequired;
 String textSelectBand;
@@ -22,6 +23,7 @@ String textNameMin;
 String textIntroNameValid;
 String textCardExpired;
 String textInvalidateMonth;
+bool validateCpfVisibility;
 
 List<String> listBand = [];
 
