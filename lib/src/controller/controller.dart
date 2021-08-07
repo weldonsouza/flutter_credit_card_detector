@@ -1,18 +1,81 @@
-import 'package:mobx/mobx.dart';
-import 'credit_card_controller.dart';
+import 'package:flutter/material.dart';
+
 import '../utils/credit_card_type_detector.dart';
 import '../utils/globals.dart';
 
-part 'controller.g.dart';
+//********************************* VARIÁVEIS **********************************
+final controllerName = TextEditingController(text: '');
+final FocusNode productFocus = FocusNode();
 
-class Controller = ControllerBase with _$Controller;
 
-abstract class ControllerBase with Store {
-  var creditCard = CreditCardController();
+class ControllerBase with ChangeNotifier {
+  //------ Variáveis utilizadas no Provider ---------
   var typeBand;
   var ccTypeBand;
+  late String number;
+  late String name;
+  late String expData;
+  late String cvv;
+  late String cpf;
+  late String iconBand;
 
-  @computed
+  //--------- Ataliza status do widget --------
+  String get getNumber {
+    return number;
+  }
+
+  String get getName {
+    return name;
+  }
+
+  String get getExpData {
+    return expData;
+  }
+
+  String get getCvv {
+    return cvv;
+  }
+
+  String get getCpf {
+    return cpf;
+  }
+
+  String get getIconBand {
+    return iconBand;
+  }
+
+  //----------- Receber o dado do widget ----------
+  changeNumero(String counter) {
+    number = counter;
+    notifyListeners();
+  }
+
+  changeName(String counter) {
+    name = counter;
+    notifyListeners();
+  }
+
+  changeExpData(String counter) {
+    expData = counter;
+    notifyListeners();
+  }
+
+  changeCVV(String counter) {
+    cvv = counter;
+    notifyListeners();
+  }
+
+  changeCpf(String counter) {
+    cpf = counter;
+    notifyListeners();
+  }
+
+  changeIconBand(String counter) {
+    iconBand = counter;
+    notifyListeners();
+  }
+
+  //--------- Validadores ---------
   bool get isValid {
     return validateNumero() == null &&
         validateName() == null &&
@@ -22,36 +85,34 @@ abstract class ControllerBase with Store {
         validateIconBand() != 'unknown';
   }
 
-  String validateNumero() {
-    ccTypeBand = detectCCType(creditCard.number);
-
-    if (creditCard.number.length < 19) {
+  String? validateNumero() {
+    ccTypeBand = detectCCType(number);
+    if (number.length < 19) {
       return textRequired;
-    } else if (ccTypeBand == CreditCardType.unknown &&
-        creditCard.iconBand == 'unknown') {
+    } else if (ccTypeBand == CreditCardType.unknown && iconBand == 'unknown') {
       return textSelectBand;
     }
 
     return null;
   }
 
-  String validateName() {
-    if (creditCard.name.isEmpty) {
+  String? validateName() {
+    if (name.isEmpty) {
       return textRequired;
-    } else if (creditCard.name.length <= 5) {
+    } else if (name.length <= 5) {
       return textNameMin;
-    } else if (int.tryParse(creditCard.name) != null) {
+    } else if (int.tryParse(name) != null) {
       return textIntroNameValid;
     }
 
     return null;
   }
 
-  String validateExpData() {
-    if (creditCard.expData.length != 5) {
+  String? validateExpData() {
+    if (expData.length != 5) {
       return textRequired;
     } else {
-      List data = creditCard.expData.split("/");
+      List data = expData.split("/");
       data[1] = "20" + data[1];
 
       if ((int.parse(data[0]) < month && int.parse(data[1]) <= year) ||
@@ -65,18 +126,18 @@ abstract class ControllerBase with Store {
     return null;
   }
 
-  String validateCVV() {
-    if (creditCard.cvv.length < 3) {
+  String? validateCVV() {
+    if (cvv.length < 3) {
       return textRequired;
     }
 
     return null;
   }
 
-  String validateCPF() {
+  String? validateCPF() {
     if (validateCpfVisibility == false) {
       return null;
-    } else if (creditCard.cpf.length < 11) {
+    } else if (cpf.length < 11) {
       return textRequired;
     }
 
@@ -84,7 +145,7 @@ abstract class ControllerBase with Store {
   }
 
   String validateIconBand() {
-    ccTypeBand = detectCCType(creditCard.number);
+    ccTypeBand = detectCCType(number);
 
     switch (ccTypeBand) {
       case CreditCardType.amex:
@@ -132,12 +193,10 @@ abstract class ControllerBase with Store {
         break;
 
       default:
-        typeBand = creditCard.iconBand;
+        typeBand = iconBand;
         break;
     }
 
     return typeBand;
   }
-
-  dispose() {}
 }

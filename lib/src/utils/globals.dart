@@ -17,17 +17,17 @@ String creditCardCVV = '';
 String creditCardBand = '';
 String creditCardCPF = '';
 
-String textRequired;
-String textSelectBand;
-String textNameMin;
-String textIntroNameValid;
-String textCardExpired;
-String textInvalidateMonth;
-bool validateCpfVisibility;
+String? textRequired;
+String? textSelectBand;
+String? textNameMin;
+String? textIntroNameValid;
+String? textCardExpired;
+String? textInvalidateMonth;
+bool? validateCpfVisibility;
 
 List<String> listBand = [];
 
-mediaQuery(BuildContext context, double value, {String direction}) {
+mediaQuery(BuildContext context, double value, {String? direction}) {
   MediaQueryData mediaQuery = MediaQuery.of(context);
   direction = direction ?? 'H';
   Size size = mediaQuery.size;

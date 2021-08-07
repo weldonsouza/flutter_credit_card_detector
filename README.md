@@ -19,7 +19,7 @@ Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/deta
 
 ```dart
 dependencies:
-    flutter_credit_card_detector: 1.0.0
+    flutter_credit_card_detector: 2.0.0
 ```
 
 2. Importar o pacote

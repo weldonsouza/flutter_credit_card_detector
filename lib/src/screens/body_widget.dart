@@ -1,15 +1,12 @@
 library flutter_credit_card_detector;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-import '../controller/controller.dart';
+import '../../flutter_credit_card_detector.dart';
 import '../utils/credit_card_type_detector.dart';
 import '../utils/globals.dart';
 
-export 'package:flutter_masked_text/flutter_masked_text.dart';
-export 'package:flutter_mobx/flutter_mobx.dart';
 export 'package:provider/provider.dart';
 
 class BodyWidget extends StatefulWidget {
@@ -25,17 +22,17 @@ class BodyWidget extends StatefulWidget {
   final List<String> listBand;
 
   const BodyWidget({
-    Key key,
-    this.titleCreditCard,
-    this.labelTextValidate,
-    this.colorCardSelect,
-    this.colorCreditWhite,
-    this.colorCreditBlack,
-    this.textSizeNumber,
-    this.textSizeName,
-    this.textSizeMonth,
-    this.textSizeCVC,
-    this.listBand,
+    Key? key,
+    required this.titleCreditCard,
+    required this.labelTextValidate,
+    required this.colorCardSelect,
+    required this.colorCreditWhite,
+    required this.colorCreditBlack,
+    required this.textSizeNumber,
+    required this.textSizeName,
+    required this.textSizeMonth,
+    required this.textSizeCVC,
+    required this.listBand,
   }) : super(key: key);
 
   @override
@@ -43,98 +40,128 @@ class BodyWidget extends StatefulWidget {
 }
 
 class _BodyWidgetState extends State<BodyWidget> {
-  CreditCardType currType;
+  late CreditCardType currType;
+  var imageSelect = 'unknown';
+
+  @override
+  void initState() {
+    super.initState();
+    currType = CreditCardType.unknown;
+  }
 
   _iconBand(controller) {
     double sizeBand = mediaQuery(context, 0.09);
     Widget icon;
-    var currType = detectCCType(controller.creditCard.number);
+    var currType = detectCCType(controller.number);
+    controller.iconBand = 'unknown';
 
     switch (currType) {
       case CreditCardType.amex:
         icon = Image(
-          image: AssetImage("assets/amex.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/amex.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
 
       case CreditCardType.aura:
         icon = Image(
-          image: AssetImage("assets/aura.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/aura.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
 
       case CreditCardType.dinersclub:
         icon = Image(
-          image: AssetImage("assets/dinersclub.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/dinersclub.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
 
       case CreditCardType.discover:
         icon = Image(
-          image: AssetImage("assets/discover.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/discover.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
 
       case CreditCardType.elo:
         icon = Image(
-          image: AssetImage("assets/elo.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/elo.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
 
       case CreditCardType.jcb:
         icon = Image(
-          image: AssetImage("assets/jcb.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/jcb.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
 
       case CreditCardType.mastercard:
         icon = Image(
-          image: AssetImage("assets/mastercard.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/mastercard.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
 
       case CreditCardType.hiper:
         icon = Image(
-          image: AssetImage("assets/hiper.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/hiper.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
 
       case CreditCardType.hipercard:
         icon = Image(
-          image: AssetImage("assets/hipercard.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/hipercard.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
 
       case CreditCardType.rupay:
         icon = Image(
-          image: AssetImage("assets/rupay.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/rupay.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
 
       case CreditCardType.visa:
         icon = Image(
-          image: AssetImage("assets/visa.png",
-              package: 'flutter_credit_card_detector'),
+          image: AssetImage(
+            "assets/visa.png",
+            package: 'flutter_credit_card_detector',
+          ),
           width: sizeBand,
         );
         break;
@@ -142,19 +169,21 @@ class _BodyWidgetState extends State<BodyWidget> {
       default:
         Widget widget;
         if (currType == CreditCardType.unknown &&
-            controller.creditCard.number.length < 4) {
+            controller.number.length < 4) {
           widget = Container(
             color: Color(0x00000000),
           );
-        } else if (controller.creditCard.iconBand != 'unknown' &&
-            controller.creditCard.number.length < 19) {
+        } else if (controller.iconBand != 'unknown' &&
+            controller.number.length < 19) {
           widget = Container(
             color: Color(0x00000000),
           );
         } else {
           widget = Image(
-            image: AssetImage("assets/${controller.creditCard.iconBand}.png",
-                package: 'flutter_credit_card_detector'),
+            image: AssetImage(
+              "assets/$imageSelect.png",
+              package: 'flutter_credit_card_detector',
+            ),
             width: sizeBand,
           );
         }
@@ -168,9 +197,8 @@ class _BodyWidgetState extends State<BodyWidget> {
   _creditCardWidget(controller) {
     bool cardColor = false;
 
-    if (controller.creditCard.iconBand != 'unknown' &&
-        controller.creditCard.number.length < 19) {
-      controller.creditCard.iconBand = 'unknown';
+    if (controller.iconBand != 'unknown' && controller.number.length < 19) {
+      controller.iconBand = 'unknown';
       currType = CreditCardType.unknown;
       cardColor = true;
     }
@@ -180,9 +208,8 @@ class _BodyWidgetState extends State<BodyWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          detectCCType(controller.creditCard.number) ==
-                      CreditCardType.unknown &&
-                  controller.creditCard.number.length > 4
+          detectCCType(controller.number) == CreditCardType.unknown &&
+                  controller.number.length > 4
               ? Wrap(
                   alignment: WrapAlignment.center,
                   children: <Widget>[
@@ -240,11 +267,16 @@ class _BodyWidgetState extends State<BodyWidget> {
 
   _gestureDetectorCard(
       controller, image, creditCardType, colorCard, cardColor) {
+
     return GestureDetector(
       onTap: () {
-        controller.creditCard.iconBand = image;
+        controller.iconBand = image;
         currType = creditCardType;
-        setState(() {});
+        controller.changeIconBand(image);
+
+        setState(() {
+          imageSelect = image;
+        });
       },
       child: Card(
         color: cardColor == false && currType == creditCardType
@@ -267,18 +299,19 @@ class _BodyWidgetState extends State<BodyWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                          color:
-                              cardColor == false && currType == creditCardType
-                                  ? widget.colorCardSelect
-                                  : Colors.white,
-                          child: Image(
-                            image: AssetImage('assets/$image.png',
-                                package: 'flutter_credit_card_detector'),
-                            width: mediaQuery(context, 0.08),
-                            height: mediaQuery(context, 0.08),
-                            color: colorCard,
-                            alignment: Alignment.center,
-                          )),
+                        color: cardColor == false && currType == creditCardType
+                            ? widget.colorCardSelect
+                            : Colors.white,
+                        child: Image(
+                          image: AssetImage('assets/$image.png',
+                              package: 'flutter_credit_card_detector',
+                          ),
+                          width: mediaQuery(context, 0.08),
+                          height: mediaQuery(context, 0.08),
+                          color: colorCard,
+                          alignment: Alignment.center,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -292,7 +325,7 @@ class _BodyWidgetState extends State<BodyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<Controller>(context);
+    final controller = Provider.of<ControllerBase>(context);
 
     return Column(
       children: <Widget>[
@@ -336,146 +369,144 @@ class _BodyWidgetState extends State<BodyWidget> {
                               Text(
                                 widget.titleCreditCard,
                                 style: TextStyle(
-                                    fontSize: mediaQuery(context, 0.04),
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                  fontSize: mediaQuery(context, 0.04),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              Observer(builder: (_) {
-                                return _iconBand(controller);
-                              }),
+                              _iconBand(controller),
                             ],
                           ),
                         ),
                         Row(
                           children: <Widget>[
                             Container(
-                                height: mediaQuery(context, 0.13),
-                                alignment: Alignment.centerLeft,
-                                child: Image(
-                                    image: AssetImage(
-                                        'assets/creditCardChip.png',
-                                        package:
-                                            'flutter_credit_card_detector'),
-                                    width: mediaQuery(context, 0.11))),
+                              height: mediaQuery(context, 0.13),
+                              alignment: Alignment.centerLeft,
+                              child: Image(
+                                image: AssetImage(
+                                  'assets/creditCardChip.png',
+                                  package: 'flutter_credit_card_detector',
+                                ),
+                                width: mediaQuery(context, 0.11),
+                              ),
+                            ),
                             Container(
-                                margin: EdgeInsets.only(left: 5),
-                                height: mediaQuery(context, 0.13),
-                                alignment: Alignment.centerLeft,
-                                child: Image(
-                                    image: AssetImage('assets/contactless.png',
-                                        package:
-                                            'flutter_credit_card_detector'),
-                                    color: Colors.white,
-                                    width: mediaQuery(context, 0.05))),
+                              margin: EdgeInsets.only(left: 5),
+                              height: mediaQuery(context, 0.13),
+                              alignment: Alignment.centerLeft,
+                              child: Image(
+                                image: AssetImage(
+                                  'assets/contactless.png',
+                                  package: 'flutter_credit_card_detector',
+                                ),
+                                color: Colors.white,
+                                width: mediaQuery(context, 0.05),
+                              ),
+                            ),
                           ],
                         ),
 
                         //Numero
-                        Observer(builder: (_) {
-                          return Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              controller.creditCard.number == null ||
-                                      controller.creditCard.number == ''
-                                  ? 'XXXX XXXX XXXX XXXX'
-                                  : controller.creditCard.number,
-                              style: TextStyle(
-                                color: Color(0xffffffff),
-                                fontSize:
-                                    mediaQuery(context, widget.textSizeNumber),
-                              ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            controller.number == null || controller.number == ''
+                                ? 'XXXX XXXX XXXX XXXX'
+                                : controller.number,
+                            style: TextStyle(
+                              color: Color(0xffffffff),
+                              fontSize:
+                                  mediaQuery(context, widget.textSizeNumber),
                             ),
-                          );
-                        }),
+                          ),
+                        ),
 
                         //Data e CVV
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Observer(builder: (_) {
-                              return Container(
-                                alignment: Alignment.topLeft,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      controller.creditCard.expData == null
-                                          ? ''
-                                          : controller.creditCard.expData,
-                                      style: TextStyle(
-                                        fontSize: mediaQuery(
-                                            context, widget.textSizeMonth),
-                                        fontWeight: FontWeight.normal,
-                                        color: Color(0xffffffff),
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.labelTextValidate,
-                                      style: TextStyle(
-                                        fontSize: mediaQuery(context, 0.02),
-                                        fontWeight: FontWeight.normal,
-                                        color: Color(0xffffffff),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }),
-                            Observer(builder: (_) {
-                              return Container(
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        controller.creditCard.cvv == null
-                                            ? ''
-                                            : controller.creditCard.cvv,
-                                        style: TextStyle(
-                                          fontSize: mediaQuery(
-                                              context, widget.textSizeCVC),
-                                          fontWeight: FontWeight.normal,
-                                          color: Color(0xffffffff),
-                                        ),
-                                      ),
-                                      Text(
-                                        "CVC",
-                                        style: TextStyle(
-                                          fontSize: mediaQuery(context, 0.02),
-                                          fontWeight: FontWeight.normal,
-                                          color: Color(0xffffffff),
-                                        ),
-                                      ),
-                                    ],
-                                  ));
-                            }),
-                          ],
-                        ),
-
-                        //Nome
-                        Observer(builder: (_) {
-                          return Container(
-                              alignment: Alignment.centerLeft,
+                            Container(
+                              alignment: Alignment.topLeft,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    controller.creditCard.name == null
+                                    controller.expData == null
                                         ? ''
-                                        : controller.creditCard.name
-                                            .toUpperCase(),
+                                        : controller.expData,
                                     style: TextStyle(
-                                      color: Color(0xffffffff),
-                                      fontWeight: FontWeight.normal,
                                       fontSize: mediaQuery(
-                                          context, widget.textSizeName),
+                                          context, widget.textSizeMonth),
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xffffffff),
                                     ),
-                                    overflow: TextOverflow.clip,
+                                  ),
+                                  Text(
+                                    widget.labelTextValidate,
+                                    style: TextStyle(
+                                      fontSize: mediaQuery(context, 0.02),
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xffffffff),
+                                    ),
                                   ),
                                 ],
-                              ));
-                        }),
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    controller.cvv == null
+                                        ? ''
+                                        : controller.cvv,
+                                    style: TextStyle(
+                                      fontSize: mediaQuery(
+                                          context, widget.textSizeCVC),
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xffffffff),
+                                    ),
+                                  ),
+                                  Text(
+                                    "CVC",
+                                    style: TextStyle(
+                                      fontSize: mediaQuery(context, 0.02),
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xffffffff),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        //Nome
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                controller.name == null
+                                    ? ''
+                                    : controller.name.toUpperCase(),
+                                style: TextStyle(
+                                  color: Color(0xffffffff),
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: mediaQuery(
+                                    context,
+                                    widget.textSizeName,
+                                  ),
+                                ),
+                                overflow: TextOverflow.clip,
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -484,9 +515,7 @@ class _BodyWidgetState extends State<BodyWidget> {
             ),
           ),
         ),
-        Observer(builder: (_) {
-          return _creditCardWidget(controller);
-        }),
+        _creditCardWidget(controller),
       ],
     );
   }

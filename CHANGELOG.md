@@ -1,3 +1,8 @@
+## [2.0.0] - 07 de Agosto 2021.
+
+* Migrate to null safety
+* Removidas as dependências do Mobx 
+
 ## [1.0.0] - 30 de Maio 2020.
 
 * Orientação de layout pode ser vertical ou horizontal

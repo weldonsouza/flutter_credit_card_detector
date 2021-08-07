@@ -1,44 +1,22 @@
-import 'package:mobx/mobx.dart';
 
-part 'credit_card_controller.g.dart';
+import 'package:flutter/material.dart';
 
-class CreditCardController = _CreditCardControllerBase
-    with _$CreditCardController;
-
-abstract class _CreditCardControllerBase with Store {
-  @observable
-  String number;
-
-  @action
+class CreditCardControllerBase {
+  late String number;
   changeNumero(String value) => number = value;
 
-  @observable
-  String name;
-
-  @action
+  late String name;
   changeName(String value) => name = value;
 
-  @observable
-  String expData;
-
-  @action
+  late String expData;
   changeExpData(String value) => expData = value;
 
-  @observable
-  String cvv;
-
-  @action
+  late String cvv;
   changeCVV(String value) => cvv = value;
 
-  @observable
-  String cpf;
-
-  @action
+  late String cpf;
   changeCpf(String value) => cpf = value;
 
-  @observable
-  String iconBand;
-
-  @action
+  late String iconBand;
   changeIconBand(String value) => iconBand = value;
 }
