@@ -412,8 +412,15 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
                 : _inputSectionColunm(),
             SizedBox(height: 8),
             //RaisedButton efetuar pagamento
-            RaisedButton(
-              color: widget.colorButton,
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: widget.colorButton,
+                minimumSize: Size(88, 36),
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(2)),
+                ),
+              ),
               onPressed: controller.isValid
                   ? () {
                       creditCardNumber = controller.number.replaceAll(' ', '');
