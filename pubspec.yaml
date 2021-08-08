@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons:
+  cupertino_icons: ^1.0.3
   flutter_masked_text2: ^0.9.1
   intl: ^0.17.0
   provider: ^5.0.0
