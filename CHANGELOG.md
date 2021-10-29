@@ -1,3 +1,7 @@
+## [2.1.0] - 29 de Outubro 2021.
+
+* Atualização das dependências do Provider
+
 ## [2.0.0] - 07 de Agosto 2021.
 
 * Migrate to null safety

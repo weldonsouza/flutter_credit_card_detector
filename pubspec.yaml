@@ -1,6 +1,6 @@
 name: flutter_credit_card_detector
 description: Um pacote Flutter que permite você implementar facilmente a interface do usuário do cartão de crédito com a detecção do cartão.
-version: 2.0.0
+version: 2.1.0
 homepage: https://github.com/weldonsouza/flutter_credit_card_detector
 
 environment:
@@ -12,7 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.3
   flutter_masked_text2: ^0.9.1
   intl: ^0.17.0
-  provider: ^5.0.0
+  provider: ^6.0.1
 
 dev_dependencies:
   flutter_test:
