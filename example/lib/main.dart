@@ -13,6 +13,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,17 +22,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title}) : super(key: key);
-  final String? title;
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -39,20 +42,33 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        accentColor: Colors.blue,
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.blue),
       ),
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('Flutter Demo'),
-            backgroundColor: Colors.orange[300],
-          ),
-          body: CreditCardWidget(listBand: listBand, onTap: _onTap)),
+        appBar: AppBar(
+          title: Text('Flutter Demo'),
+          backgroundColor: Colors.orange[300],
+        ),
+        body: CreditCardWidget(listBand: listBand, onTap: _onTap),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
 
   // Bandeiras disponíveis
-  List<String> listBand = ['visa', 'mastercard', 'amex', 'elo', 'dinersclub', 'discover', 'jcb', 'aura', 'hiper', 'hipercard', 'rupay'];
+  List<String> listBand = [
+    'visa',
+    'mastercard',
+    'amex',
+    'elo',
+    'dinersclub',
+    'discover',
+    'jcb',
+    'aura',
+    'hiper',
+    'hipercard',
+    'rupay'
+  ];
 
   _onTap() async {
     print('Numero do cartão: $creditCardNumber'); // Numero do cartão digitado
