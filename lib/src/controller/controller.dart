@@ -45,7 +45,7 @@ class ControllerBase with ChangeNotifier {
   }
 
   //----------- Receber o dado do widget ----------
-  changeNumero(String counter) {
+  changeNumber(String counter) {
     number = counter;
     notifyListeners();
   }
@@ -77,7 +77,7 @@ class ControllerBase with ChangeNotifier {
 
   //--------- Validadores ---------
   bool get isValid {
-    return validateNumero() == null &&
+    return validateNumber() == null &&
         validateName() == null &&
         validateExpData() == null &&
         validateCVV() == null &&
@@ -85,7 +85,7 @@ class ControllerBase with ChangeNotifier {
         validateIconBand() != 'unknown';
   }
 
-  String? validateNumero() {
+  String? validateNumber() {
     ccTypeBand = detectCCType(number);
     if (number.length < 19) {
       return textRequired;

@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
-import '../../flutter_credit_card_detector.dart';
-
 class CreditCardWidget extends StatefulWidget {
   final String labelTextNum;
   final String labelTextName;
@@ -147,6 +145,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
         nextFocusNode,
         labelText,
         nextTexFieldView,
+        inputFormatters,
         String? Function()? errorText}) {
       return Container(
         width: width,
@@ -159,8 +158,10 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
           focusNode: focusNode,
           onChanged: onChanged,
           textCapitalization: textCapitalization,
-          inputFormatters: [BlacklistingTextInputFormatter(RegExp(r'[.,]'))],
-          autovalidate: true,
+          inputFormatters: inputFormatters != null
+              ? [FilteringTextInputFormatter.digitsOnly]
+              : [],
+          //autoValidate: true,
           onFieldSubmitted: (v) {
             if (controller.isValid) {
               creditCardNumber = controller.number.replaceAll(' ', '');
@@ -176,10 +177,14 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
             }
           },
           onEditingComplete: () {
-            FocusScope.of(context).requestFocus(nextFocusNode);
-            nextTexFieldView.currentContext
-                .findRenderObject()
-                .showOnScreen(duration: Duration(seconds: 0));
+            if (nextTexFieldView == false) {
+              FocusScope.of(context).unfocus();
+            } else {
+              FocusScope.of(context).requestFocus(nextFocusNode);
+              nextTexFieldView.currentContext
+                  .findRenderObject()
+                  .showOnScreen(duration: Duration(seconds: 0));
+            }
           },
           decoration: InputDecoration(
             border: OutlineInputBorder(
@@ -214,14 +219,15 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
                 controllerTextField: _ccNum,
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
+                inputFormatters: true,
                 maxLength: 19,
                 focusNode: _numFocus,
-                onChanged: controller.changeNumero,
+                onChanged: controller.changeNumber,
                 textCapitalization: TextCapitalization.none,
                 nextFocusNode: _nameFocus,
                 labelText: widget.labelTextNum,
                 nextTexFieldView: textFieldNam,
-                errorText: controller.validateNumero,
+                errorText: controller.validateNumber,
               ),
               SizedBox(width: 10),
               //Nome no cartão
@@ -289,6 +295,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
                       textInputAction: TextInputAction.done,
                       maxLength: 11,
                       focusNode: _cpfFocus,
+                      nextTexFieldView: false,
                       onChanged: controller.changeCpf,
                       textCapitalization: TextCapitalization.characters,
                       labelText: widget.labelTextCPF,
@@ -300,7 +307,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
       );
     }
 
-    Widget _inputSectionColunm() {
+    Widget _inputSectionColumn() {
       var ccType = detectCCType(controller.number);
 
       return Column(
@@ -312,11 +319,12 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
             textInputAction: TextInputAction.next,
             maxLength: 19,
             focusNode: _numFocus,
-            onChanged: controller.changeNumero,
+            onChanged: controller.changeNumber,
+            inputFormatters: true,
             textCapitalization: TextCapitalization.none,
             nextFocusNode: _nameFocus,
             labelText: widget.labelTextNum,
-            errorText: controller.validateNumero,
+            errorText: controller.validateNumber,
           ),
           SizedBox(height: 8),
           //Nome no cartão
@@ -378,10 +386,12 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
                   controllerTextField: _cpf,
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.done,
+                  inputFormatters: true,
                   maxLength: 11,
                   focusNode: _cpfFocus,
                   onChanged: controller.changeCpf,
                   textCapitalization: TextCapitalization.characters,
+                  nextTexFieldView: false,
                   labelText: widget.labelTextCPF,
                   errorText: controller.validateCPF,
                 ),
@@ -409,12 +419,12 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
             SizedBox(height: 10),
             widget.viewLayout == true
                 ? _inputSectionRow()
-                : _inputSectionColunm(),
+                : _inputSectionColumn(),
             SizedBox(height: 8),
             //RaisedButton efetuar pagamento
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: widget.colorButton,
+                backgroundColor: widget.colorButton,
                 minimumSize: Size(88, 36),
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 shape: const RoundedRectangleBorder(

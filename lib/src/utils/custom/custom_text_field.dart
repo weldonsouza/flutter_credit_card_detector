@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -27,7 +26,7 @@ class CustomTextField extends StatefulWidget {
   Function()? onFieldSubmitted;
   final onTap;
   final onPressed;
-  bool autovalidate;
+  final bool? autoValidate;
   bool readOnly;
   Widget? prefixIcon;
 
@@ -58,7 +57,7 @@ class CustomTextField extends StatefulWidget {
       this.onPressed,
       this.readOnly = false,
       this.prefixIcon,
-      this.autovalidate = true,
+      this.autoValidate = true,
       this.onFieldSubmitted,
       this.onEditingComplete})
       : super(key: key);
@@ -86,7 +85,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         maxLines: widget.maxLines,
         focusNode: widget.focusNode,
         onChanged: widget.onChanged,
-        autovalidate: widget.autovalidate,
+        //autocorrect: widget.autoValidate,
         validator: widget.validate,
         readOnly: widget.readOnly,
         textCapitalization: widget.textCapitalization,

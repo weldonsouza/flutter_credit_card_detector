@@ -1,3 +1,7 @@
+## [2.2.0] - 26 de Novembro 2022.
+
+* Atualização das dependências
+ 
 ## [2.1.0] - 29 de Outubro 2021.
 
 * Atualização das dependências do Provider
