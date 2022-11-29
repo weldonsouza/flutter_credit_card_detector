@@ -1,9 +1,6 @@
-
-import 'package:flutter/material.dart';
-
 class CreditCardControllerBase {
   late String number;
-  changeNumero(String value) => number = value;
+  changeNumber(String value) => number = value;
 
   late String name;
   changeName(String value) => name = value;

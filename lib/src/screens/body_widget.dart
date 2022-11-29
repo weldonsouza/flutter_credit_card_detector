@@ -1,11 +1,8 @@
 library flutter_credit_card_detector;
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../flutter_credit_card_detector.dart';
-import '../utils/credit_card_type_detector.dart';
-import '../utils/globals.dart';
 
 export 'package:provider/provider.dart';
 
