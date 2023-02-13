@@ -408,7 +408,7 @@ class _BodyWidgetState extends State<BodyWidget> {
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            controller.number == null || controller.number == ''
+                            controller.number.isEmpty || controller.number == ''
                                 ? 'XXXX XXXX XXXX XXXX'
                                 : controller.number,
                             style: TextStyle(
@@ -430,7 +430,7 @@ class _BodyWidgetState extends State<BodyWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    controller.expData == null
+                                    controller.expData.isEmpty
                                         ? ''
                                         : controller.expData,
                                     style: TextStyle(
@@ -456,7 +456,7 @@ class _BodyWidgetState extends State<BodyWidget> {
                               child: Column(
                                 children: <Widget>[
                                   Text(
-                                    controller.cvv == null
+                                    controller.cvv.isEmpty
                                         ? ''
                                         : controller.cvv,
                                     style: TextStyle(
@@ -488,7 +488,7 @@ class _BodyWidgetState extends State<BodyWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                controller.name == null
+                                controller.name.isEmpty
                                     ? ''
                                     : controller.name.toUpperCase(),
                                 style: TextStyle(

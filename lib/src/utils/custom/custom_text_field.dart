@@ -17,18 +17,18 @@ class CustomTextField extends StatefulWidget {
   final Color colorText;
   final Color colorBord;
   final TextAlign textAlign;
-  bool iconBool;
+  late final bool iconBool;
   final IconData? suffixIcon1;
   final IconData? suffixIcon2;
-  String Function()? errorText;
+  final String Function()? errorText;
   final validate;
   final onEditingComplete;
-  Function()? onFieldSubmitted;
+  final Function()? onFieldSubmitted;
   final onTap;
   final onPressed;
   final bool? autoValidate;
-  bool readOnly;
-  Widget? prefixIcon;
+  final bool readOnly;
+  final Widget? prefixIcon;
 
   CustomTextField(
       {Key? key,
