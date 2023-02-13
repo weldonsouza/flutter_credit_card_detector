@@ -1,3 +1,7 @@
+## [2.3.0] - 13 de Fevereiro 2023.
+
+* Atualização das dependências
+
 ## [2.2.0] - 26 de Novembro 2022.
 
 * Atualização das dependências

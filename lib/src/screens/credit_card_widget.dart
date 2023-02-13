@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+
+import '../utils/mask_text_input_formatter.dart';
 
 class CreditCardWidget extends StatefulWidget {
   final String labelTextNum;
