@@ -12,7 +12,7 @@ Um pacote Flutter que permite você implementar facilmente a interface do usuár
 ![screenshot4](https://github.com/weldonsouza/flutter_credit_card_detector/blob/master/screenshot/screenshot4.png)
 ![screenshot5](https://github.com/weldonsouza/flutter_credit_card_detector/blob/master/screenshot/screenshot5.png)
 
-Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/details?id=com.neduki.creditcarddetector)
+Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/details?id=com.criaapp.creditcarddetector)
 
 ## Uso
 1. Adicione dependência a `pubspec.yaml`
