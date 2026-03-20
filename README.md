@@ -6,11 +6,11 @@
 Um pacote Flutter que permite você implementar facilmente a interface do usuário do cartão de crédito com a detecção do cartão.
 
 ## Preview
-![O aplicativo de exemplo em execução no Android](https://github.com/weldonsouza/flutter_credit_card_detector/blob/master/preview/preview.gif)
+![O aplicativo de exemplo em execução no Android](preview/preview.gif)
 
 ## Screenshot
-![screenshot4](https://github.com/weldonsouza/flutter_credit_card_detector/blob/master/screenshot/screenshot4.png)
-![screenshot5](https://github.com/weldonsouza/flutter_credit_card_detector/blob/master/screenshot/screenshot5.png)
+![screenshot4](screenshot/screenshot4.png)
+![screenshot5](screenshot/screenshot5.png)
 
 Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/details?id=com.criaapp.creditcarddetector)
 
@@ -19,7 +19,7 @@ Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/deta
 
 ```dart
 dependencies:
-    flutter_credit_card_detector: ^3.0.0
+    flutter_credit_card_detector: ^3.0.1
 ```
 
 2. Importar o pacote

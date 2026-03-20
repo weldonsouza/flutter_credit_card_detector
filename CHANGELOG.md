@@ -1,3 +1,11 @@
+## [3.0.1] - 20 de Março 2026.
+
+* Correções de estabilidade no fluxo de seleção manual de bandeira.
+* Correção de inicialização no `ControllerBase` para evitar `LateInitializationError`.
+* Ajustes e otimizações internas no `BodyWidget`.
+* Atualização do projeto iOS do `example` para compatibilidade com ferramentas atuais.
+* Melhorias no `README` (exemplos, parâmetros e links de imagens para renderização no pub.dev).
+
 ## [3.0.0] - 17 de Março 2026.
 
 * Migração do pacote para Flutter/Dart atuais:
