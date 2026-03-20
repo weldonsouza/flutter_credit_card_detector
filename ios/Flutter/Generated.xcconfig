@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/weldonsouza/development/flutter
-FLUTTER_APPLICATION_PATH=/Users/weldonsouza/Documents/Flutter Projects/flutter_credit_card_detector
+FLUTTER_APPLICATION_PATH=/Users/weldonsouza/Documents/FlutterProjects/Projects Olds/flutter_credit_card_detector
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_TARGET=lib/main.dart
 FLUTTER_BUILD_DIR=build

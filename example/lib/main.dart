@@ -18,48 +18,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Credit Card Detector Example',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        colorSchemeSeed: Colors.orange,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.blue),
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Flutter Demo'),
-          backgroundColor: Colors.orange[300],
-        ),
-        body: CreditCardWidget(listBand: listBand, onTap: _onTap),
-      ),
+      home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
+}
 
-  // Bandeiras disponíveis
-  List<String> listBand = [
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
+  static const List<String> _listBand = [
     'visa',
     'mastercard',
     'amex',
+    'maestro',
+    'unionpay',
+    'troy',
+    'dankort',
+    'uatp',
     'elo',
     'dinersclub',
     'discover',
@@ -67,15 +48,83 @@ class _MyHomePageState extends State<MyHomePage> {
     'aura',
     'hiper',
     'hipercard',
-    'rupay'
+    'rupay',
   ];
 
-  _onTap() async {
-    print('Numero do cartão: $creditCardNumber'); // Numero do cartão digitado
-    print('Nome no cartão: $creditCardName'); // Nome no cartão digitado
-    print('Valido até: $creditCardExpData'); // Validade do cartão
-    print('CVV: $creditCardCVV'); // Código de segurança
-    print('Bandeira: $creditCardBand'); // Bandeira do cartão
-    print('CPF: $creditCardCPF'); // CPF do Titular
+  void _onTap() {
+    debugPrint('Numero do cartão: $creditCardNumber');
+    debugPrint('Nome no cartão: $creditCardName');
+    debugPrint('Valido até: $creditCardExpData');
+    debugPrint('CVV: $creditCardCVV');
+    debugPrint('Bandeira: $creditCardBand');
+    debugPrint('CPF: $creditCardCPF');
+  }
+
+  Widget _buildExample({
+    required CreditCardStylePreset preset,
+    String? fontFamily,
+    double borderRadius = 16,
+    double elevation = 5,
+  }) {
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
+        child: CreditCardWidget(
+          key: ValueKey<CreditCardStylePreset>(preset),
+          listBand: _listBand,
+          cardStylePreset: preset,
+          fontFamily: fontFamily,
+          cardBorderRadius: borderRadius,
+          cardElevation: elevation,
+          onTap: _onTap,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Credit Card Detector'),
+          bottom: const TabBar(
+            isScrollable: true,
+            tabs: [
+              Tab(text: 'Modern'),
+              Tab(text: 'Glass'),
+              Tab(text: 'Midnight'),
+              Tab(text: 'Custom'),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            _buildExample(
+              preset: CreditCardStylePreset.modern,
+              fontFamily: 'Roboto',
+              borderRadius: 18,
+              elevation: 7,
+            ),
+            _buildExample(
+              preset: CreditCardStylePreset.glass,
+              borderRadius: 20,
+              elevation: 2,
+            ),
+            _buildExample(
+              preset: CreditCardStylePreset.midnight,
+              borderRadius: 16,
+              elevation: 6,
+            ),
+            _buildExample(
+              preset: CreditCardStylePreset.custom,
+              borderRadius: 12,
+              elevation: 3,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

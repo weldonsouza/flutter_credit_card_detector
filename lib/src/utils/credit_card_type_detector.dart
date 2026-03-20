@@ -1,20 +1,7 @@
 // Supported card types
-import 'globals.dart';
+import 'package:flutter_credit_card_detector/src/utils/enums.dart';
 
-enum CreditCardType {
-  aura,
-  visa,
-  amex,
-  discover,
-  mastercard,
-  dinersclub,
-  jcb,
-  elo,
-  hiper,
-  hipercard,
-  rupay,
-  unknown,
-}
+import 'globals.dart';
 
 /// CC prefix patterns as of March 2019
 /// A [List<String>] represents a range.
@@ -97,61 +84,97 @@ const Map<CreditCardType, Set<List<String>>> cardNumPatterns = {
   },
   CreditCardType.rupay: {
     ['6521', '6522'],
-  }
+  },
+  CreditCardType.maestro: {
+    ['50'],
+    ['56', '69'],
+  },
+  CreditCardType.unionpay: {
+    ['62'],
+    ['81'],
+  },
+  CreditCardType.troy: {
+    ['9792'],
+  },
+  CreditCardType.dankort: {
+    ['5019'],
+  },
+  CreditCardType.uatp: {
+    ['1'],
+  },
 };
 
 /// This function determines the CC type based on the cardPatterns
 CreditCardType detectCCType(String ccNumStr) {
-  CreditCardType cardType = CreditCardType.unknown;
-
   if (ccNumStr.isEmpty) {
-    return cardType;
+    return CreditCardType.unknown;
   }
 
-  //TODO error checking for strings with non-numerical chars
+  // Remove espaços (mantém compat com o comportamento atual)
+  final ccDigits = ccNumStr.replaceAll(RegExp(r'\s+\b|\b\s'), '');
 
-  cardNumPatterns.forEach(
-    (CreditCardType type, Set<List<String>> patterns) {
-      for (List<String> patternRange in patterns) {
-        // Remove any spaces
-        String ccPatternStr = ccNumStr.replaceAll(RegExp(r'\s+\b|\b\s'), '');
-        int rangeLen = patternRange[0].length;
-        // Trim the CC number str to match the pattern prefix length
-        if (rangeLen < ccNumStr.length) {
-          ccPatternStr = ccPatternStr.substring(0, rangeLen);
-        }
+  // Para resolver colisões (ex.: "50" pode ser Aura ou Maestro),
+  // escolhemos o match mais específico (maior prefixo). Em empate,
+  // aplicamos uma prioridade fixa.
+  const priority = <CreditCardType, int>{
+    CreditCardType.maestro: 110,
+    CreditCardType.aura: 100,
+    CreditCardType.visa: 90,
+    CreditCardType.mastercard: 90,
+    CreditCardType.amex: 90,
+    CreditCardType.elo: 90,
+    CreditCardType.hipercard: 80,
+    CreditCardType.hiper: 80,
+    CreditCardType.dinersclub: 80,
+    CreditCardType.discover: 80,
+    CreditCardType.jcb: 80,
+    CreditCardType.rupay: 70,
+    CreditCardType.unionpay: 60,
+    CreditCardType.troy: 60,
+    CreditCardType.dankort: 60,
+    CreditCardType.uatp: 50,
+  };
 
-        if (patternRange.length > 1) {
-          // Convert the prefix range into numbers then make sure the
-          // CC num is in the pattern range.
-          // Because Strings don't have '>=' type operators
-          int ccPrefixAsInt = int.parse(ccPatternStr);
-          int startPatternPrefixAsInt = int.parse(patternRange[0]);
-          int endPatternPrefixAsInt = int.parse(patternRange[1]);
-          if (ccPrefixAsInt >= startPatternPrefixAsInt &&
-              ccPrefixAsInt <= endPatternPrefixAsInt) {
-            // Found a match
-            cardType = type;
-            break;
-          }
-        } else {
-          // Just compare the single pattern prefix with the CC prefix
-          if (ccPatternStr == patternRange[0]) {
-            // Found a match
-            cardType = type;
-            break;
-          }
+  CreditCardType bestType = CreditCardType.unknown;
+  int bestPrefixLen = 0;
+  int bestPriority = -1;
+
+  bool isAllowed(CreditCardType type) {
+    final name = type.toString().replaceAll('CreditCardType.', '');
+    return listBand.contains(name);
+  }
+
+  for (final entry in cardNumPatterns.entries) {
+    final type = entry.key;
+    if (!isAllowed(type)) continue;
+
+    for (final patternRange in entry.value) {
+      final rangeLen = patternRange[0].length;
+      final ccPrefix = (rangeLen < ccDigits.length) ? ccDigits.substring(0, rangeLen) : ccDigits;
+
+      bool matched = false;
+      if (patternRange.length > 1) {
+        final ccPrefixAsInt = int.tryParse(ccPrefix);
+        final startAsInt = int.tryParse(patternRange[0]);
+        final endAsInt = int.tryParse(patternRange[1]);
+        if (ccPrefixAsInt != null && startAsInt != null && endAsInt != null) {
+          matched = ccPrefixAsInt >= startAsInt && ccPrefixAsInt <= endAsInt;
         }
+      } else {
+        matched = ccPrefix == patternRange[0];
       }
-    },
-  );
 
-  var listCCTypeBand = cardType.toString().replaceAll('CreditCardType.', '');
-  if (listBand.contains(listCCTypeBand)) {
-    cardType = cardType;
-  } else {
-    cardType = CreditCardType.unknown;
+      if (!matched) continue;
+
+      final p = priority[type] ?? 0;
+      final isBetter = (rangeLen > bestPrefixLen) || (rangeLen == bestPrefixLen && p > bestPriority);
+      if (isBetter) {
+        bestType = type;
+        bestPrefixLen = rangeLen;
+        bestPriority = p;
+      }
+    }
   }
 
-  return cardType;
+  return bestType;
 }

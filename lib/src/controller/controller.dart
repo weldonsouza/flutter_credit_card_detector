@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card_detector/src/utils/enums.dart';
 
 import '../utils/credit_card_type_detector.dart';
 import '../utils/globals.dart';
@@ -7,17 +8,16 @@ import '../utils/globals.dart';
 final controllerName = TextEditingController(text: '');
 final FocusNode productFocus = FocusNode();
 
-
 class ControllerBase with ChangeNotifier {
   //------ Variáveis utilizadas no Provider ---------
-  var typeBand;
-  var ccTypeBand;
-  late String number;
-  late String name;
-  late String expData;
-  late String cvv;
-  late String cpf;
-  late String iconBand;
+  String typeBand = 'unknown';
+  CreditCardType ccTypeBand = CreditCardType.unknown;
+  String number = '';
+  String name = '';
+  String expData = '';
+  String cvv = '';
+  String cpf = '';
+  String iconBand = 'unknown';
 
   //--------- Ataliza status do widget --------
   String get getNumber {
@@ -99,7 +99,7 @@ class ControllerBase with ChangeNotifier {
   String? validateName() {
     if (name.isEmpty) {
       return textRequired;
-    } else if (name.length <= 5) {
+    } else if (name.length <= 3) {
       return textNameMin;
     } else if (int.tryParse(name) != null) {
       return textIntroNameValid;
@@ -151,47 +151,51 @@ class ControllerBase with ChangeNotifier {
       case CreditCardType.amex:
         typeBand = 'Amex';
         break;
-
       case CreditCardType.aura:
         typeBand = 'Aura';
         break;
-
       case CreditCardType.dinersclub:
         typeBand = 'Diners';
         break;
-
       case CreditCardType.discover:
         typeBand = 'Discover';
         break;
-
       case CreditCardType.elo:
         typeBand = 'Elo';
         break;
-
       case CreditCardType.jcb:
         typeBand = 'JCB';
         break;
-
       case CreditCardType.mastercard:
         typeBand = 'Master';
         break;
-
       case CreditCardType.hiper:
         typeBand = 'Hiper';
         break;
-
       case CreditCardType.hipercard:
         typeBand = 'Hipercard';
         break;
-
       case CreditCardType.rupay:
         typeBand = 'Rupay';
         break;
-
+      case CreditCardType.maestro:
+        typeBand = 'Maestro';
+        break;
+      case CreditCardType.unionpay:
+        typeBand = 'UnionPay';
+        break;
+      case CreditCardType.troy:
+        typeBand = 'Troy';
+        break;
+      case CreditCardType.dankort:
+        typeBand = 'Dankort';
+        break;
+      case CreditCardType.uatp:
+        typeBand = 'UATP';
+        break;
       case CreditCardType.visa:
         typeBand = 'Visa';
         break;
-
       default:
         typeBand = iconBand;
         break;

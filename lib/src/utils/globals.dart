@@ -3,9 +3,9 @@ library my_prj.globals;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-var now = new DateTime.now();
-var formatterMM = new DateFormat('MM');
-var formatterYY = new DateFormat('yyyy');
+var now = DateTime.now();
+var formatterMM = DateFormat('MM');
+var formatterYY = DateFormat('yyyy');
 
 int month = int.parse(formatterMM.format(now).toString());
 int year = int.parse(formatterYY.format(now).toString());
