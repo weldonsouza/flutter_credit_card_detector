@@ -1,4 +1,4 @@
-## [3.0.1] - 20 de Março 2026.
+## [3.0.2] - 20 de Março 2026.
 
 * Correções de estabilidade no fluxo de seleção manual de bandeira.
 * Correção de inicialização no `ControllerBase` para evitar `LateInitializationError`.
