@@ -113,7 +113,7 @@ class ControllerBase with ChangeNotifier {
       return textRequired;
     } else {
       List data = expData.split("/");
-      data[1] = "20" + data[1];
+      data[1] = '20${data[1]}';
 
       if ((int.parse(data[0]) < month && int.parse(data[1]) <= year) ||
           (int.parse(data[1]) < year)) {

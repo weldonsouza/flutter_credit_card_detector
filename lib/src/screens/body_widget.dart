@@ -1,5 +1,3 @@
-library flutter_credit_card_detector;
-
 import 'package:flutter/material.dart';
 
 import '../../flutter_credit_card_detector.dart';

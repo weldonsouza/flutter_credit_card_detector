@@ -1,3 +1,16 @@
+## [3.0.0] - 17 de Março 2026.
+
+* Migração do pacote para Flutter/Dart atuais:
+  * `sdk: >=3.0.0 <4.0.0`
+  * `flutter: >=3.10.0`
+* Atualização de dependências e ajustes para build moderno do exemplo Android.
+* Melhorias de design e customização do widget:
+  * presets visuais do cartão (`custom`, `modern`, `glass`, `midnight`)
+  * novos parâmetros de estilo (tipografia, raio, elevação, margens e padding)
+* Ampliação da detecção de bandeiras (incluindo Maestro, UnionPay, Troy, Dankort e UATP) com regra de prioridade em colisões.
+* Refatoração interna para componentes reutilizáveis (campos, seção de formulário, botão de submit e opção de bandeira).
+* Correções de estabilidade na seleção manual de bandeira e inicialização de estado do controller.
+
 ## [2.3.0] - 13 de Fevereiro 2023.
 
 * Atualização das dependências

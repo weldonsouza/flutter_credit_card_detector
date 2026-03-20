@@ -19,7 +19,7 @@ Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/deta
 
 ```dart
 dependencies:
-    flutter_credit_card_detector: 2.3.0
+    flutter_credit_card_detector: ^3.0.0
 ```
 
 2. Importar o pacote
@@ -27,42 +27,37 @@ dependencies:
 import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
 ```
 
-3. Adicionando CreditCardWidget
+3. Adicionando `CreditCardWidget`
+
 - *Com parâmetros requeridos*
 ```dart
-...
-    @override
-    Widget build(BuildContext context) {
-      return MultiProvider(
-        providers: [
-          Provider<Controller>(
-            create: (_) => Controller(),
-            dispose: (_, controler) => controler.dispose(),
-          )
-        ],
-        child: Scaffold(
-            appBar: AppBar(
-              title: Text('Flutter Demo'),
-              backgroundColor: Colors.orange[300],
-            ),
-            body: CreditCardWidget(onTap: _onTap)),
-      );
-    }
-...
-      _onTap() async {
-        print('Numero do cartão: $creditCardNumber'); // Numero do cartão digitado
-        print('Nome no cartão: $creditCardName'); // Nome no cartão digitado
-        print('Valido até: $creditCardExpData'); // Validade do cartão
-        print('CVV: $creditCardCVV'); // Código de segurança
-        print('Bandeira: $creditCardBand'); // Bandeira do cartão
-        print('CPF: $creditCardCPF'); // CPF do Titular
-      }
-...
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ControllerBase()),
+      ],
+      child: const MaterialApp(
+        home: Scaffold(
+          body: CreditCardWidget(onTap: _onTap),
+        ),
+      ),
+    ),
+  );
+}
+
+void _onTap() {
+  debugPrint('Numero do cartão: $creditCardNumber');
+  debugPrint('Nome no cartão: $creditCardName');
+  debugPrint('Valido até: $creditCardExpData');
+  debugPrint('CVV: $creditCardCVV');
+  debugPrint('Bandeira: $creditCardBand');
+  debugPrint('CPF: $creditCardCPF');
+}
 ```
 - *Com parâmetros opcionais*
 ```dart
-...
-    CreditCardWidget(
+CreditCardWidget(
         labelTextNum: 'Numero do cartão', // Texto exibido no textField
         labelTextName: 'Nome no cartão', // Texto exibido no textField
         labelTextExpData: 'MM/YY', // Texto exibido no textField
@@ -73,7 +68,7 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
         labelTextValidate: 'Valido Até', // Texto de validade do cartão
         textRequired: 'Campo é obrigatorio', // Mensagem de erro no textField - campos vazios
         textSelectBand: 'Selecione a bandeira', // Mensagem de erro no textField - quando a bandeira não é identificada
-        textNameMin: 'O nome de conter pelo menos 6 caracteres', // Mensagem de erro no textField - campo nome
+        textNameMin: 'O nome deve conter pelo menos 3 caracteres', // Mensagem de erro no textField - campo nome
         textIntroNameValid: 'Insira um nome válido', // Mensagem de erro no textField - campo nome
         textCardExpired: 'Cartão vencido', // Mensagem de erro no textField - campo validade do cartão
         textInvalidateMonth: 'Mês incorreto.', // Mensagem de erro no textField - campo validade do cartão
@@ -87,18 +82,33 @@ import 'package:flutter_credit_card_detector/flutter_credit_card_detector.dart';
         textSizeName: 0.04, // Tamanho do nome apresentado no cartão
         textSizeMonth: 0.03, // Tamanho do texto apresentado no cartão
         textSizeCVC: 0.03, // Tamanho do texto apresentado no cartão
+        cardStylePreset: CreditCardStylePreset.modern, // custom, modern, glass, midnight
+        fontFamily: 'Roboto', // Fonte do cartão
+        cardBorderRadius: 18, // Borda do cartão
+        cardElevation: 7, // Elevação do cartão
+        cardMargin: const EdgeInsets.symmetric(horizontal: 8),
+        cardContentPadding: const EdgeInsets.all(18),
+        titleTextStyle: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        numberTextStyle: const TextStyle(fontSize: 36, letterSpacing: 1.6),
+        nameTextStyle: const TextStyle(fontSize: 18),
+        detailLabelTextStyle: const TextStyle(fontSize: 12),
+        detailValueTextStyle: const TextStyle(fontSize: 16),
         viewLayout: false, // Vertical = false, Horizontal = true
         cpfVisibility: true, // Campo do CPF visível = true e false para ocultar o campo
         listBand: ['visa', 'mastercard'], // Definir quais cartões estarão disponíveis
         onTap: onTap, // Função
-    ),
-...
+),
 ```
 # Recursos
 * Cartões suportados:
     * Visa
     * Mastercard
     * American Express
+    * Maestro
+    * UnionPay
+    * Troy
+    * Dankort
+    * UATP
     * Aura
     * DinersClub
     * Discover

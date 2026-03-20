@@ -24,7 +24,7 @@ class CustomTextField extends StatefulWidget {
   final FormFieldValidator<String>? validate;
   final VoidCallback? onEditingComplete;
   final ValueChanged<String>? onFieldSubmitted;
-  final onTap;
+  final VoidCallback? onTap;
   final VoidCallback? onPressed;
   final bool? autoValidate;
   final bool readOnly;
@@ -112,9 +112,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onTap: widget.onTap,
         decoration: InputDecoration(
           counterText: '',
-          prefixIcon: widget.prefixIcon == null
-              ? null
-              : widget.prefixIcon,
+          prefixIcon: widget.prefixIcon,
           suffixIcon: widget.suffixIcon1 == null
               ? widget.suffixIcon2 == null
                   ? null

@@ -1,5 +1,3 @@
-library my_prj.globals;
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

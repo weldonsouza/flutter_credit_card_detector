@@ -1,5 +1,3 @@
-library flutter_masked_text2;
-
 import 'package:flutter/material.dart';
 
 class MaskedTextController extends TextEditingController {
@@ -9,15 +7,15 @@ class MaskedTextController extends TextEditingController {
 
     addListener(() {
       var previous = _lastUpdatedText;
-      if (beforeChange(previous, this.text)) {
-        updateText(this.text);
-        afterChange(previous, this.text);
+      if (beforeChange(previous, text)) {
+        updateText(text);
+        afterChange(previous, text);
       } else {
         updateText(_lastUpdatedText);
       }
     });
 
-    updateText(this.text);
+    updateText(text);
   }
 
   String? mask;
