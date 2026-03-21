@@ -1,5 +1,7 @@
-## [3.0.2] - 20 de Março 2026.
+## [3.0.3] - 20 de Março 2026.
 
+* `CreditCardWidget`: parâmetros opcionais para personalizar os campos de texto (`inputDecoration`, `inputContentPadding`, bordas `input*Border`), repassados a todos os `CreditCardInputField`.
+* Export público de `CreditCardInputField` no barrel do pacote.
 * Correções de estabilidade no fluxo de seleção manual de bandeira.
 * Correção de inicialização no `ControllerBase` para evitar `LateInitializationError`.
 * Ajustes e otimizações internas no `BodyWidget`.

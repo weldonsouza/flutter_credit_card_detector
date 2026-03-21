@@ -45,6 +45,13 @@ class CreditCardWidget extends StatefulWidget {
   final bool viewLayout;
   final bool cpfVisibility;
   final VoidCallback onTap;
+final InputDecoration? inputDecoration;
+  final EdgeInsetsGeometry? inputContentPadding;
+  final InputBorder? inputBorder;
+  final InputBorder? inputEnabledBorder;
+  final InputBorder? inputFocusedBorder;
+  final InputBorder? inputErrorBorder;
+  final InputBorder? inputFocusedErrorBorder;
 
   const CreditCardWidget({
     super.key,
@@ -105,6 +112,13 @@ class CreditCardWidget extends StatefulWidget {
     this.viewLayout = false,
     this.cpfVisibility = true,
     required this.onTap,
+    this.inputDecoration,
+    this.inputContentPadding,
+    this.inputBorder,
+    this.inputEnabledBorder,
+    this.inputFocusedBorder,
+    this.inputErrorBorder,
+    this.inputFocusedErrorBorder,
   });
 
   @override
@@ -226,6 +240,13 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
               cpfVisibility: widget.cpfVisibility,
               borderColor: widget.colorButton,
               labelColor: widget.colorTextField,
+              inputDecoration: widget.inputDecoration,
+              inputContentPadding: widget.inputContentPadding,
+              inputBorder: widget.inputBorder,
+              inputEnabledBorder: widget.inputEnabledBorder,
+              inputFocusedBorder: widget.inputFocusedBorder,
+              inputErrorBorder: widget.inputErrorBorder,
+              inputFocusedErrorBorder: widget.inputFocusedErrorBorder,
               labelTextNum: widget.labelTextNum,
               labelTextName: widget.labelTextName,
               labelTextExpData: widget.labelTextExpData,

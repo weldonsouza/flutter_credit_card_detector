@@ -19,6 +19,13 @@ class CreditCardInputField extends StatelessWidget {
   final Color borderColor;
   final Color labelColor;
   final VoidCallback? onSubmitIfValid;
+  final InputDecoration? decoration;
+  final EdgeInsetsGeometry? contentPadding;
+  final InputBorder? border;
+  final InputBorder? enabledBorder;
+  final InputBorder? focusedBorder;
+  final InputBorder? errorBorder;
+  final InputBorder? focusedErrorBorder;
 
   const CreditCardInputField({
     super.key,
@@ -39,7 +46,41 @@ class CreditCardInputField extends StatelessWidget {
     required this.borderColor,
     required this.labelColor,
     this.onSubmitIfValid,
+    this.decoration,
+    this.contentPadding,
+    this.border,
+    this.enabledBorder,
+    this.focusedBorder,
+    this.errorBorder,
+    this.focusedErrorBorder,
   });
+
+  InputDecoration _resolveDecoration() {
+    final err = errorText == null ? null : errorText!();
+
+    if (decoration != null) {
+      return decoration!.copyWith(
+        errorText: err,
+        labelText: decoration!.labelText ?? labelText,
+        labelStyle: decoration!.labelStyle ?? TextStyle(color: labelColor),
+      );
+    }
+
+    final outline = OutlineInputBorder(
+      borderSide: BorderSide(color: borderColor),
+    );
+    return InputDecoration(
+      border: border ?? outline,
+      enabledBorder: enabledBorder ?? border ?? outline,
+      focusedBorder: focusedBorder ?? outline,
+      errorBorder: errorBorder,
+      focusedErrorBorder: focusedErrorBorder,
+      labelText: labelText,
+      labelStyle: TextStyle(color: labelColor),
+      errorText: err,
+      contentPadding: contentPadding,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +107,7 @@ class CreditCardInputField extends StatelessWidget {
                 ?.showOnScreen(duration: const Duration(seconds: 0));
           }
         },
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: borderColor),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: borderColor),
-          ),
-          labelText: labelText,
-          labelStyle: TextStyle(color: labelColor),
-          errorText: errorText == null ? null : errorText!(),
-        ),
+        decoration: _resolveDecoration(),
       ),
     );
   }

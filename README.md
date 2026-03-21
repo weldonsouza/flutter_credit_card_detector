@@ -12,14 +12,14 @@ Um pacote Flutter que permite você implementar facilmente a interface do usuár
 ![screenshot4](https://raw.githubusercontent.com/weldonsouza/flutter_credit_card_detector/master/screenshot/screenshot4.png)
 ![screenshot5](https://raw.githubusercontent.com/weldonsouza/flutter_credit_card_detector/master/screenshot/screenshot5.png)
 
-Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/details?id=com.criaapp.creditcarddetector)
+Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/details?id=com.neduki.creditcarddetector)
 
 ## Uso
 1. Adicione dependência a `pubspec.yaml`
 
 ```dart
 dependencies:
-    flutter_credit_card_detector: ^3.0.2
+    flutter_credit_card_detector: ^3.0.3
 ```
 
 2. Importar o pacote
@@ -99,6 +99,32 @@ CreditCardWidget(
         onTap: onTap, // Função
 ),
 ```
+
+### Personalização dos campos de texto (`TextFormField`)
+
+O `CreditCardWidget` repassa para **todos** os campos (número, nome, validade, CVV, CPF) os parâmetros opcionais:
+
+- `inputDecoration` — `InputDecoration` completo (o erro de validação continua sendo mesclado).
+- `inputContentPadding` — padding interno (quando não usa `inputDecoration`).
+- `inputBorder`, `inputEnabledBorder`, `inputFocusedBorder`, `inputErrorBorder`, `inputFocusedErrorBorder` — bordas no modo padrão (sem `inputDecoration`).
+
+```dart
+CreditCardWidget(
+  onTap: onTap,
+  inputContentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+  inputBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(12),
+    borderSide: BorderSide(color: Colors.orange, width: 1.5),
+  ),
+  inputFocusedBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(12),
+    borderSide: BorderSide(color: Colors.deepOrange, width: 2),
+  ),
+);
+```
+
+Para controle fino por campo, use o widget `CreditCardInputField` diretamente (também exportado por `flutter_credit_card_detector.dart`).
+
 # Recursos
 * Cartões suportados:
     * Visa
