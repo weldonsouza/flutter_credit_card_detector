@@ -1,5 +1,7 @@
 export 'src/controller/controller.dart';
 export 'src/controller/credit_card_controller.dart';
+export 'src/models/card_scan_button_data.dart';
+export 'src/models/card_scan_result.dart';
 export 'src/screens/body_widget.dart';
 export 'src/screens/credit_card_widget.dart';
 export 'src/screens/widgets/credit_card_input_field.dart';

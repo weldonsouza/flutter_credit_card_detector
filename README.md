@@ -19,7 +19,7 @@ Aplicativo disponível na [`Play Store`](https://play.google.com/store/apps/deta
 
 ```dart
 dependencies:
-    flutter_credit_card_detector: ^3.0.3
+    flutter_credit_card_detector: ^3.0.4
 ```
 
 2. Importar o pacote
@@ -125,6 +125,55 @@ CreditCardWidget(
 
 Para controle fino por campo, use o widget `CreditCardInputField` diretamente (também exportado por `flutter_credit_card_detector.dart`).
 
+### Preenchimento via câmera / OCR (opcional)
+
+O pacote **não** inclui câmera nem OCR: você implementa a captura e o reconhecimento no app e devolve os dados com `CardScanResult`. O `CreditCardWidget` aplica apenas os campos preenchidos (número, nome e validade). CVV e CPF continuam manuais quando aplicável.
+
+Parâmetros:
+
+- `showCardScanAction` — exibe o ícone ao lado do número (padrão `false`).
+- `onCardScan` — `Future<CardScanResult?> Function()?`: abrir câmera, processar imagem, retornar `CardScanResult` ou `null`.
+- `cardScanIcon`, `cardScanIconColor`, `cardScanTooltip` — personalização opcional do **ícone padrão**.
+- `cardScanButtonBuilder` — substitui o **layout inteiro** do botão ao lado do número; recebe `CardScanButtonData` (`enabled`, `loading`, `onPressed`, `icon`, `iconColor`, `tooltip`). Conecte `onPressed` ao seu widget (ex.: `IconButton`, `FilledButton`).
+
+```dart
+CreditCardWidget(
+  onTap: onTap,
+  showCardScanAction: true,
+  onCardScan: () async {
+    // Ex.: image_picker + google_mlkit_text_recognition
+    return CardScanResult(
+      cardNumber: '4111111111111111',
+      holderName: 'NOME NO CARTAO',
+      expiryMmYy: '12/30',
+    );
+  },
+);
+```
+
+Layout do botão customizado:
+
+```dart
+CreditCardWidget(
+  onTap: onTap,
+  showCardScanAction: true,
+  onCardScan: myScan,
+  cardScanButtonBuilder: (context, data) {
+    return IconButton.filledTonal(
+      onPressed: data.onPressed,
+      tooltip: data.tooltip,
+      icon: data.loading
+          ? SizedBox(
+              width: 22,
+              height: 22,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
+          : Icon(data.icon, color: data.iconColor),
+    );
+  },
+);
+```
+
 # Recursos
 * Cartões suportados:
     * Visa
@@ -144,7 +193,7 @@ Para controle fino por campo, use o widget `CreditCardInputField` diretamente (t
     * JCB
     * Rupay
 
-Para mais detalhes sobre o uso, confira o aplicativo example fornecido.
+Para mais detalhes sobre o uso, confira o aplicativo **example**: a aba *Custom* usa `cardScanButtonBuilder`; *Horizontal* usa o botão padrão do pacote (dados simulados).
 
 # Licença
 O flutter_credit_card_detector é liberado sob a licença MIT. Consulte [LICENÇA](./LICENSE) para obter detalhes.

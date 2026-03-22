@@ -22,6 +22,7 @@ class CreditCardWidget extends StatefulWidget {
   final String textInvalidateMonth; // Controller
   final Color colorButton;
   final Color colorTextButton;
+  final double? marginTop;
   final Color colorTextField;
   final Color colorCardSelect; // body_widget
   final Color colorCreditWhite; // body_widget
@@ -45,13 +46,32 @@ class CreditCardWidget extends StatefulWidget {
   final bool viewLayout;
   final bool cpfVisibility;
   final VoidCallback onTap;
-final InputDecoration? inputDecoration;
+  final InputDecoration? inputDecoration;
   final EdgeInsetsGeometry? inputContentPadding;
   final InputBorder? inputBorder;
   final InputBorder? inputEnabledBorder;
   final InputBorder? inputFocusedBorder;
   final InputBorder? inputErrorBorder;
   final InputBorder? inputFocusedErrorBorder;
+
+  /// Quando `true`, exibe um ícone ao lado do campo do número para escanear o cartão.
+  /// Requer [onCardScan] para o botão ficar habilitado.
+  final bool showCardScanAction;
+
+  /// Implementação no app (câmera, OCR, etc.). Retorne [CardScanResult] com os
+  /// campos detectados; valores nulos ou vazios não alteram o formulário.
+  final Future<CardScanResult?> Function()? onCardScan;
+
+  final IconData cardScanIcon;
+
+  /// Se null, usa [colorButton] do formulário.
+  final Color? cardScanIconColor;
+
+  final String? cardScanTooltip;
+
+  /// Substitui o botão padrão ao lado do número. Recebe [CardScanButtonData] com
+  /// `onPressed`, `loading` e estilos; use `data.onPressed` no seu widget.
+  final CardScanButtonBuilder? cardScanButtonBuilder;
 
   const CreditCardWidget({
     super.key,
@@ -71,6 +91,7 @@ final InputDecoration? inputDecoration;
     this.textInvalidateMonth = 'Mês incorreto.',
     this.colorButton = const Color(0xFFfec177),
     this.colorTextButton = Colors.white,
+    this.marginTop,
     this.colorTextField = Colors.grey,
     this.colorCardSelect = const Color(0xFFfec177),
     this.colorCreditWhite = const Color(0xff535252),
@@ -119,6 +140,12 @@ final InputDecoration? inputDecoration;
     this.inputFocusedBorder,
     this.inputErrorBorder,
     this.inputFocusedErrorBorder,
+    this.showCardScanAction = false,
+    this.onCardScan,
+    this.cardScanIcon = Icons.photo_camera_rounded,
+    this.cardScanIconColor,
+    this.cardScanTooltip,
+    this.cardScanButtonBuilder,
   });
 
   @override
@@ -126,6 +153,8 @@ final InputDecoration? inputDecoration;
 }
 
 class _CreditCardWidgetState extends State<CreditCardWidget> {
+  bool _cardScanBusy = false;
+
   final FocusNode _numFocus = FocusNode();
   final FocusNode _nameFocus = FocusNode();
   final FocusNode _expDateFocus = FocusNode();
@@ -181,6 +210,50 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
     super.dispose();
   }
 
+  String _normalizeExpiryForMask(String raw) {
+    final digits = raw.replaceAll(RegExp(r'\D'), '');
+    if (digits.length >= 4) {
+      return '${digits.substring(0, 2)}/${digits.substring(2, 4)}';
+    }
+    final trimmed = raw.trim();
+    return trimmed.length <= 5 ? trimmed : trimmed.substring(0, 5);
+  }
+
+  void _applyCardScanResult(CardScanResult result, ControllerBase controller) {
+    if (result.cardNumber != null && result.cardNumber!.isNotEmpty) {
+      final digits = result.cardNumber!.replaceAll(RegExp(r'\D'), '');
+      if (digits.isNotEmpty) {
+        _ccNum.updateText(digits);
+        controller.changeNumber(_ccNum.text);
+      }
+    }
+    if (result.holderName != null && result.holderName!.trim().isNotEmpty) {
+      _nome.text = result.holderName!.trim();
+      controller.changeName(_nome.text);
+    }
+    if (result.expiryMmYy != null && result.expiryMmYy!.trim().isNotEmpty) {
+      final normalized = _normalizeExpiryForMask(result.expiryMmYy!);
+      _expData.updateText(normalized);
+      controller.changeExpData(_expData.text);
+    }
+  }
+
+  void _handleCardScan() {
+    final future = widget.onCardScan;
+    if (future == null || _cardScanBusy) return;
+    setState(() => _cardScanBusy = true);
+    future()
+        .then((result) {
+      if (!mounted || result == null) return;
+      final controller = Provider.of<ControllerBase>(context, listen: false);
+      _applyCardScanResult(result, controller);
+      setState(() {});
+    })
+        .whenComplete(() {
+      if (mounted) setState(() => _cardScanBusy = false);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = Provider.of<ControllerBase>(context);
@@ -203,6 +276,23 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
     }
 
     final ccType = detectCCType(controller.number);
+
+    final Widget? cardScanOverride = widget.showCardScanAction &&
+            widget.cardScanButtonBuilder != null
+        ? widget.cardScanButtonBuilder!(
+            context,
+            CardScanButtonData(
+              enabled: widget.onCardScan != null,
+              loading: _cardScanBusy,
+              onPressed: (widget.onCardScan == null || _cardScanBusy)
+                  ? null
+                  : _handleCardScan,
+              icon: widget.cardScanIcon,
+              iconColor: widget.cardScanIconColor ?? widget.colorButton,
+              tooltip: widget.cardScanTooltip,
+            ),
+          )
+        : null;
 
     return SingleChildScrollView(
       child: Container(
@@ -232,7 +322,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
               cardStylePreset: widget.cardStylePreset,
               listBand: widget.listBand,
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 8),
             CreditCardFormSection(
               layoutMode: widget.viewLayout
                   ? CreditCardFormLayoutMode.row
@@ -279,13 +369,22 @@ class _CreditCardWidgetState extends State<CreditCardWidget> {
               onSubmitIfValid: submitIfValid,
               mediaQuery: mediaQuery,
               ccType: ccType,
+              showCardScanAction: widget.showCardScanAction,
+              cardScanBusy: _cardScanBusy,
+              onCardScanPressed:
+                  widget.onCardScan == null ? null : _handleCardScan,
+              cardScanIcon: widget.cardScanIcon,
+              cardScanIconColor:
+                  widget.cardScanIconColor ?? widget.colorButton,
+              cardScanTooltip: widget.cardScanTooltip,
+              cardScanButtonOverride: cardScanOverride,
             ),
-            SizedBox(height: 8),
             CreditCardSubmitButton(
               label: widget.labelTextButton,
               backgroundColor: widget.colorButton,
               foregroundColor: widget.colorTextButton,
               enabled: controller.isValid,
+              marginTop: widget.marginTop,
               onPressed: submitIfValid,
             ),
           ],

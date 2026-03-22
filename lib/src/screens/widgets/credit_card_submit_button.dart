@@ -5,6 +5,7 @@ class CreditCardSubmitButton extends StatelessWidget {
   final Color backgroundColor;
   final Color foregroundColor;
   final bool enabled;
+  final double? marginTop;
   final VoidCallback? onPressed;
 
   const CreditCardSubmitButton({
@@ -13,13 +14,15 @@ class CreditCardSubmitButton extends StatelessWidget {
     required this.backgroundColor,
     required this.foregroundColor,
     required this.enabled,
+    this.marginTop,
     required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
+      margin: EdgeInsets.only(top: marginTop ?? 16),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,

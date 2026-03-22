@@ -41,6 +41,16 @@ class CreditCardFormSection extends StatelessWidget {
   final dynamic Function(BuildContext, double, {String? direction}) mediaQuery;
   final CreditCardType ccType;
 
+  final bool showCardScanAction;
+  final bool cardScanBusy;
+  final VoidCallback? onCardScanPressed;
+  final IconData cardScanIcon;
+  final Color? cardScanIconColor;
+  final String? cardScanTooltip;
+
+  /// Quando não null, substitui o botão padrão gerado pelo pacote.
+  final Widget? cardScanButtonOverride;
+
   final InputDecoration? inputDecoration;
   final EdgeInsetsGeometry? inputContentPadding;
   final InputBorder? inputBorder;
@@ -87,6 +97,13 @@ class CreditCardFormSection extends StatelessWidget {
     required this.onSubmitIfValid,
     required this.mediaQuery,
     required this.ccType,
+    this.showCardScanAction = false,
+    this.cardScanBusy = false,
+    this.onCardScanPressed,
+    this.cardScanIcon = Icons.photo_camera_rounded,
+    this.cardScanIconColor,
+    this.cardScanTooltip,
+    this.cardScanButtonOverride,
     this.inputDecoration,
     this.inputContentPadding,
     this.inputBorder,
@@ -97,6 +114,113 @@ class CreditCardFormSection extends StatelessWidget {
   });
 
   int get _cvvMaxLength => ccType == CreditCardType.amex || ccType == CreditCardType.discover ? 4 : 3;
+
+  Color get _scanIconColor => cardScanIconColor ?? borderColor;
+
+  Widget _buildScanActionButton(BuildContext context) {
+    final enabled = !cardScanBusy && onCardScanPressed != null;
+    final color = _scanIconColor;
+    final bg = enabled
+        ? color.withValues(alpha: 0.12)
+        : Theme.of(context).disabledColor.withValues(alpha: 0.08);
+
+    final icon = cardScanBusy
+        ? SizedBox(
+            width: 22,
+            height: 22,
+            child: CircularProgressIndicator(
+              strokeWidth: 2.5,
+              color: color,
+            ),
+          )
+        : Icon(
+            cardScanIcon,
+            color: color,
+            size: 24,
+          );
+
+    return Tooltip(
+      message: cardScanTooltip ?? 'Preencher com a câmera',
+      child: Material(
+        color: bg,
+        borderRadius: BorderRadius.circular(12),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: enabled ? onCardScanPressed : null,
+          borderRadius: BorderRadius.circular(12),
+          child: SizedBox(
+            width: 44,
+            height: 44,
+            child: Center(child: icon),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNumberField(
+    BuildContext context, {
+    double? fixedWidth,
+    GlobalKey? nextTextFieldView,
+  }) {
+    final field = CreditCardInputField(
+      width: showCardScanAction ? null : fixedWidth,
+      controller: ccNumController,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.next,
+      digitsOnly: true,
+      maxLength: 19,
+      focusNode: numFocus,
+      onChanged: onNumberChanged,
+      textCapitalization: TextCapitalization.none,
+      nextFocusNode: nameFocus,
+      labelText: labelTextNum,
+      nextTextFieldView: nextTextFieldView,
+      errorText: validateNumber,
+      borderColor: borderColor,
+      labelColor: labelColor,
+      decoration: inputDecoration,
+      contentPadding: inputContentPadding,
+      border: inputBorder,
+      enabledBorder: inputEnabledBorder,
+      focusedBorder: inputFocusedBorder,
+      errorBorder: inputErrorBorder,
+      focusedErrorBorder: inputFocusedErrorBorder,
+      onSubmitIfValid: onSubmitIfValid,
+    );
+
+    if (!showCardScanAction) {
+      if (fixedWidth != null) {
+        return SizedBox(width: fixedWidth, child: field);
+      }
+      return field;
+    }
+
+    final scanBtn =
+        cardScanButtonOverride ?? _buildScanActionButton(context);
+
+    // Alinha o botão ao topo do campo (Outline + label); `center` desloca com erro abaixo.
+    final row = Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Expanded(child: field),
+        const SizedBox(width: 8),
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: scanBtn,
+        ),
+      ],
+    );
+
+    if (fixedWidth != null) {
+      return SizedBox(
+        width: fixedWidth + 8 + 44,
+        child: row,
+      );
+    }
+
+    return row;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,30 +233,10 @@ class CreditCardFormSection extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              CreditCardInputField(
-                width: mediaQuery(context, 0.7),
-                controller: ccNumController,
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                digitsOnly: true,
-                maxLength: 19,
-                focusNode: numFocus,
-                onChanged: onNumberChanged,
-                textCapitalization: TextCapitalization.none,
-                nextFocusNode: nameFocus,
-                labelText: labelTextNum,
+              _buildNumberField(
+                context,
+                fixedWidth: mediaQuery(context, 0.7),
                 nextTextFieldView: textFieldNam,
-                errorText: validateNumber,
-                borderColor: borderColor,
-                labelColor: labelColor,
-                decoration: inputDecoration,
-                contentPadding: inputContentPadding,
-                border: inputBorder,
-                enabledBorder: inputEnabledBorder,
-                focusedBorder: inputFocusedBorder,
-                errorBorder: inputErrorBorder,
-                focusedErrorBorder: inputFocusedErrorBorder,
-                onSubmitIfValid: onSubmitIfValid,
               ),
               const SizedBox(width: 10),
               CreditCardInputField(
@@ -242,29 +346,7 @@ class CreditCardFormSection extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        CreditCardInputField(
-          controller: ccNumController,
-          keyboardType: TextInputType.number,
-          textInputAction: TextInputAction.next,
-          maxLength: 19,
-          focusNode: numFocus,
-          onChanged: onNumberChanged,
-          digitsOnly: true,
-          textCapitalization: TextCapitalization.none,
-          nextFocusNode: nameFocus,
-          labelText: labelTextNum,
-          errorText: validateNumber,
-          borderColor: borderColor,
-          labelColor: labelColor,
-          decoration: inputDecoration,
-          contentPadding: inputContentPadding,
-          border: inputBorder,
-          enabledBorder: inputEnabledBorder,
-          focusedBorder: inputFocusedBorder,
-          errorBorder: inputErrorBorder,
-          focusedErrorBorder: inputFocusedErrorBorder,
-          onSubmitIfValid: onSubmitIfValid,
-        ),
+        _buildNumberField(context),
         const SizedBox(height: 8),
         CreditCardInputField(
           controller: nameController,

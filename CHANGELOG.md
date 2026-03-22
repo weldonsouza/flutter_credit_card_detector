@@ -1,3 +1,10 @@
+## [3.0.4] - 21 de Março 2026.
+
+* `CreditCardWidget`: ação opcional de escaneamento do cartão (`showCardScanAction`, `onCardScan`, `cardScanIcon`, `cardScanIconColor`, `cardScanTooltip`) com modelo `CardScanResult` exportado pelo pacote; o app implementa câmera/OCR e o widget preenche número, nome e validade quando informados.
+* Example: nova aba **Horizontal** (`viewLayout: true`) com demo do ícone de escaneamento; chaves de widget por aba para estado independente.
+* `CreditCardWidget`: `cardScanButtonBuilder` opcional para substituir o layout do botão de escaneamento; modelo `CardScanButtonData` e typedef `CardScanButtonBuilder` exportados.
+* Example: aba *Custom* demonstra botão tonal customizado (`IconButton.filledTonal`).
+
 ## [3.0.3] - 20 de Março 2026.
 
 * `CreditCardWidget`: parâmetros opcionais para personalizar os campos de texto (`inputDecoration`, `inputContentPadding`, bordas `input*Border`), repassados a todos os `CreditCardInputField`.
